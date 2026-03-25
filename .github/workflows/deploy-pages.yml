@@ -7,15 +7,13 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,6 +26,12 @@ jobs:
           node-version: 20
           cache: npm
 
+      - name: Resolve Publish Branch
+        id: publish-branch
+        env:
+          PUBLIC_PAGES_BRANCH: ${{ vars.PUBLIC_PAGES_BRANCH }}
+        run: echo "value=${PUBLIC_PAGES_BRANCH:-gh-pages}" >> "$GITHUB_OUTPUT"
+
       - name: Install Dependencies
         run: npm ci
 
@@ -38,24 +42,19 @@ jobs:
           NEXT_PUBLIC_TICKET_SALE_CONTRACT_ADDRESS: ${{ vars.NEXT_PUBLIC_TICKET_SALE_CONTRACT_ADDRESS }}
           POCKET_RPC: ${{ secrets.POCKET_RPC }}
           LAVA_RPC: ${{ secrets.LAVA_RPC }}
+          PAGES_REPOSITORY: ${{ vars.PUBLIC_PAGES_REPO }}
         run: npm run build:pages
 
       - name: Disable Jekyll Processing
         run: touch out/.nojekyll
 
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Publish To Public Pages Repository
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: out
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+          personal_token: ${{ secrets.PUBLIC_PAGES_PAT }}
+          external_repository: ${{ vars.PUBLIC_PAGES_REPO }}
+          publish_branch: ${{ steps.publish-branch.outputs.value }}
+          publish_dir: out
+          force_orphan: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com

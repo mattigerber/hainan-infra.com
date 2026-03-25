@@ -4,8 +4,11 @@ import { fileURLToPath } from "node:url";
 
 const NEXT_CONFIG_DIR = dirname(fileURLToPath(import.meta.url));
 const IS_GITHUB_PAGES = process.env.GITHUB_PAGES === "true";
-const REPOSITORY_NAME = process.env.GITHUB_REPOSITORY?.split("/")?.[1] ?? "";
-const PAGES_BASE_PATH = IS_GITHUB_PAGES && REPOSITORY_NAME ? `/${REPOSITORY_NAME}` : "";
+const PAGES_REPOSITORY = process.env.PAGES_REPOSITORY ?? process.env.GITHUB_REPOSITORY ?? "";
+const REPOSITORY_NAME = PAGES_REPOSITORY.split("/")?.[1] ?? "";
+const IS_USER_SITE_REPOSITORY = REPOSITORY_NAME.toLowerCase().endsWith(".github.io");
+const PAGES_BASE_PATH =
+  IS_GITHUB_PAGES && REPOSITORY_NAME && !IS_USER_SITE_REPOSITORY ? `/${REPOSITORY_NAME}` : "";
 
 const SUPPORTED_LOCALES = ["en", "zh", "ru", "ar"] as const;
 
