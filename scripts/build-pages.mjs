@@ -159,7 +159,7 @@ try {
   await run("node", ["scripts/generate-media-manifests.mjs"], process.env);
   await disableServerOnlyArtifacts();
 
-  await run("npx", ["next", "build"], {
+  await run("npx", ["next", "build", "--webpack"], {
     ...process.env,
     GITHUB_PAGES: "true",
   });
