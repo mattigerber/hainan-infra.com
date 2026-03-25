@@ -100,7 +100,7 @@ export default function WalletHoldingsSection({
 
         </div>
       ) : (
-        <div className="mx-auto max-w-7xl border border-white/15 bg-white/[0.03] p-4 sm:p-6 md:p-7 2xl:max-w-[90rem]">
+        <div className="mx-auto mt-6 max-w-7xl border border-white/15 bg-white/[0.03] p-4 sm:mt-8 sm:p-6 md:p-7 2xl:max-w-[90rem]">
           <div className="space-y-8">
             <div>
               <div className="mb-4 text-base uppercase tracking-[0.16em] text-white/65 md:text-lg">{t("wallet.holdings.investedProjects")}</div>
