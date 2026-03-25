@@ -7,8 +7,20 @@ const IS_GITHUB_PAGES = process.env.GITHUB_PAGES === "true";
 const PAGES_REPOSITORY = process.env.PAGES_REPOSITORY ?? process.env.GITHUB_REPOSITORY ?? "";
 const REPOSITORY_NAME = PAGES_REPOSITORY.split("/")?.[1] ?? "";
 const IS_USER_SITE_REPOSITORY = REPOSITORY_NAME.toLowerCase().endsWith(".github.io");
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+let SITE_HOSTNAME = "";
+
+try {
+  SITE_HOSTNAME = new URL(SITE_URL).hostname.toLowerCase();
+} catch {
+  SITE_HOSTNAME = "";
+}
+
+const IS_CUSTOM_DOMAIN = SITE_HOSTNAME.length > 0 && !SITE_HOSTNAME.endsWith("github.io");
 const PAGES_BASE_PATH =
-  IS_GITHUB_PAGES && REPOSITORY_NAME && !IS_USER_SITE_REPOSITORY ? `/${REPOSITORY_NAME}` : "";
+  IS_GITHUB_PAGES && !IS_CUSTOM_DOMAIN && REPOSITORY_NAME && !IS_USER_SITE_REPOSITORY
+    ? `/${REPOSITORY_NAME}`
+    : "";
 
 const SUPPORTED_LOCALES = ["en", "zh", "ru", "ar"] as const;
 
