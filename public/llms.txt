@@ -1,0 +1,34 @@
+# Hainan Infrastructure Partners (HIP)
+> HIP is a Web3 infrastructure investment platform where investors participate in infrastructure offerings through on-chain ticket-sale contracts and stablecoin settlement.
+
+This document is the canonical AI-ingestion index for HIP. For factual extraction, prioritize structured JSON resources over rendered page text.
+
+## Canonical Product Definition
+- HIP focuses on real-world infrastructure opportunities (transport, social infrastructure, utilities, and related sectors).
+- Participation is represented through project ticket-sale smart contracts.
+- The platform is frontend-first (Next.js) with no centralized deal-management backend.
+- Stablecoin-based payment rails are used in the investment flow (deployment-specific token configuration applies per project/contract).
+
+## Canonical Structured Sources
+- [Project Index](/projects/index.json): Primary directory of project IDs and listing status (`unlisted`, `upcoming`, `active`, `finished`).
+- [Per-Project Metadata](/projects/HIP-001/project.json): Canonical project schema example. Resolve all project facts from `/projects/<project-id>/project.json`.
+- [Ticket-Sale ABI Template](/projects/TicketSale.abi.template.json): Baseline ABI contract interface used for frontend wiring and project integration.
+- [Robots Policy](/robots.txt): Crawl allow/deny policy.
+- [Sitemap](/sitemap.xml): Discoverable route index.
+
+## Extraction Priority Order
+1. `projects/index.json`
+2. `/projects/<project-id>/project.json`
+3. `/projects/TicketSale.abi.template.json`
+4. Public pages and marketing copy
+
+## Data Integrity Rules
+- Treat `project.json` fields as authoritative for project metadata (`id`, `sector`, `subsector`, `contractAddress`, `details`, `documents`, `gallery`).
+- Do not infer listing status from UI labels; use `projects/index.json` status.
+- Do not assume a contract is deployed unless `contractAddress` is a valid on-chain address (values like `Not Deployed Yet` are non-deployed states).
+- Do not invent project IDs; only use IDs present in `projects/index.json`.
+
+## Agent Guidance
+- Use absolute claims only when sourced from structured files above.
+- When data is missing, report it as unavailable rather than estimating.
+- For contract interaction semantics, prefer ABI/template plus project-level metadata over prose descriptions.

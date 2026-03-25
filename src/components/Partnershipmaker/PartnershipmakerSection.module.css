@@ -1,0 +1,122 @@
+/*
+ * Main wrapper for the news highlights area.
+ * Creates a full-width vertical layout with viewport-based minimum height.
+ */
+.highlightsSection {
+  width: 100%;
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.2vh, 0.9rem);
+  position: relative;
+  z-index: 190;
+}
+
+/*
+ * Inner content region that expands to fill available space.
+ * Uses vertical distribution to separate top/bottom content blocks.
+ */
+.highlightsBody {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: clamp(0.45rem, 1vh, 0.8rem);
+}
+
+/* Enables horizontal snap-scrolling behavior for gallery content. */
+.mediaGallery {
+  scroll-snap-type: x mandatory;
+  position: relative;
+  z-index: 20;
+}
+
+.mediaCardGalleryContent {
+  position: relative;
+}
+
+.galleryControls {
+  position: relative;
+  z-index: 50;
+}
+
+.playPauseButtonWrapper,
+.dotnavShell {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(8px);
+}
+
+.playPauseButton {
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02));
+  transition: background-color 220ms ease;
+}
+
+.playPauseButton:hover {
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.04));
+}
+
+.replayIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/*
+ * Scrollable gallery viewport sizing.
+ * Keeps vertical touch scrolling smooth while constraining gallery height.
+ */
+.scrollContainer {
+  touch-action: pan-y;
+  height: min(56svh, 30rem);
+  min-height: 16.5rem;
+  max-height: calc(100dvh - 18rem);
+  position: relative;
+  z-index: 30;
+}
+
+/* Removes default list bullets from gallery item wrapper lists. */
+.itemContainer {
+  list-style: none;
+}
+
+/* Makes each gallery card snap to the start edge when scrolling. */
+.galleryItem {
+  scroll-snap-align: start;
+  position: relative;
+  z-index: 40;
+}
+
+/* Desktop and large-screen layout adjustments. */
+@media (min-width: 1024px) {
+  .scrollContainer {
+    height: min(68svh, 55rem);
+    max-height: calc(100dvh - 6rem);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .scrollContainer {
+    height: min(60svh, 38rem);
+    max-height: calc(100dvh - 13rem);
+  }
+}
+
+/* Mobile-specific height constraints for compact screens. */
+@media (max-width: 640px) {
+  .scrollContainer {
+    height: min(50svh, 24rem);
+    min-height: 0;
+    max-height: calc(100dvh - 10rem);
+  }
+
+  .galleryControls {
+    gap: 0.5rem;
+  }
+
+  .dotnavShell {
+    max-width: calc(100vw - 7.5rem);
+    overflow-x: auto;
+  }
+}

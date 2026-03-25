@@ -1,0 +1,56 @@
+.partnersFade {
+  position: relative;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.partnersTrack {
+  --partner-gap: 0.9rem;
+  display: flex;
+  width: max-content;
+  animation: partnersMarquee 68s linear infinite;
+  will-change: transform;
+}
+
+:global(html[dir="rtl"]) .partnersTrack {
+  animation-name: partnersMarqueeRtl;
+}
+
+.partnersGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--partner-gap);
+  padding-inline-end: var(--partner-gap);
+}
+
+@keyframes partnersMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes partnersMarqueeRtl {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(50%);
+  }
+}
+
+@media (min-width: 640px) {
+  .partnersTrack {
+    --partner-gap: 1.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partnersTrack {
+    animation: none;
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "id": "HIP-001",
+  "coreType": "CORE",
+  "sector": "Social Infrastructure",
+  "subsector": "Hospitals",
+  "name": "Tianjin",
+  "country": "China",
+  "fundingRound": "Round 1",
+  "completionDate": "Q3 2028",
+  "totalFundraising": "$700M",
+  "ticketSize": "$100,000,000",
+  "ticketsLeft": 7,
+  "contractAddress": "Not Deployed Yet",
+  "assetSize": "190,260 m2 clinical campus",
+  "metrics": [
+      {
+      "label": "Planned Staff",
+      "value": "705"
+    },
+    {
+      "label": "Treatment Chamber",
+      "value": "8"
+    },
+    {
+      "label": "Beds",
+      "value": "500"
+    }
+  ],
+  "details": [
+    {
+      "label": "Contract Address",
+      "value": "Not Deployed Yet"
+    },
+    {
+      "label": "Total Fundraising",
+      "value": "$700,000,000"
+    },
+    {
+      "label": "Ticket Size",
+      "value": "$100,000,000"
+    }
+  ],
+
+  "gallery": [
+    {
+      "kind": "image",
+      "title": "Front View",
+      "src": "/projects/HIP-001/images/building-front.jpg"
+    },
+    {
+      "kind": "image",
+      "title": "Construction Site 2",
+      "src": "/projects/HIP-001/images/building-schematic.jpg"
+    },
+    {
+      "kind": "image",
+      "title": "Construction Site 3",
+      "src": "/projects/HIP-001/images/building-main.jpg"
+    },
+    {
+      "kind": "image",
+      "title": "Construction Site 4",
+      "src": "/projects/HIP-001/images/building-side.jpg"
+    },
+    {
+      "kind": "image",
+      "title": "Construction Site 5",
+      "src": "/projects/HIP-001/images/location-area.jpg"
+    },
+    {
+      "kind": "image",
+      "title": "Cover",
+      "src": "/projects/HIP-001/images/accessibility.jpg"
+    }
+  ]
+}

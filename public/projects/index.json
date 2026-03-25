@@ -1,0 +1,8 @@
+[
+  {"_comment": "// unlisted, upcoming, active, finished"},
+  {
+   "id": "HIP-001", 
+   "category": "core", 
+   "status": "upcoming"
+  }
+]
