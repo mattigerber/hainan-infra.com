@@ -7,6 +7,7 @@ const IS_GITHUB_PAGES = process.env.GITHUB_PAGES === "true";
 const PAGES_REPOSITORY = process.env.PAGES_REPOSITORY ?? process.env.GITHUB_REPOSITORY ?? "";
 const REPOSITORY_NAME = PAGES_REPOSITORY.split("/")?.[1] ?? "";
 const IS_USER_SITE_REPOSITORY = REPOSITORY_NAME.toLowerCase().endsWith(".github.io");
+const REPOSITORY_NAME_LOOKS_LIKE_DOMAIN = REPOSITORY_NAME.includes(".") && !IS_USER_SITE_REPOSITORY;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "";
 let SITE_HOSTNAME = "";
 
@@ -16,7 +17,9 @@ try {
   SITE_HOSTNAME = "";
 }
 
-const IS_CUSTOM_DOMAIN = SITE_HOSTNAME.length > 0 && !SITE_HOSTNAME.endsWith("github.io");
+const IS_CUSTOM_DOMAIN =
+  (SITE_HOSTNAME.length > 0 && !SITE_HOSTNAME.endsWith("github.io")) ||
+  REPOSITORY_NAME_LOOKS_LIKE_DOMAIN;
 const PAGES_BASE_PATH =
   IS_GITHUB_PAGES && !IS_CUSTOM_DOMAIN && REPOSITORY_NAME && !IS_USER_SITE_REPOSITORY
     ? `/${REPOSITORY_NAME}`
