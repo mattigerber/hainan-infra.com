@@ -39,18 +39,12 @@ The app is configured for Ethereum mainnet in wallet flows and chain switching.
 
 ## Deploy To GitHub Pages
 
-This repository includes a GitHub Actions workflow at [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml) that builds a static export and publishes it to a separate public GitHub Pages repository.
-
-This allows keeping source code private while serving a public site.
+This repository includes a GitHub Actions workflow at [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml) that builds and deploys static output directly to GitHub Pages in this same repository.
 
 Required repository configuration:
 
-1. In the target public repository, configure GitHub Pages to serve from the branch used below (for example `gh-pages`).
-2. In this private source repository, add the following repository variables/secrets:
-
-- Variable: `PUBLIC_PAGES_REPO` (format: `owner/repo`, for example `my-org/my-site`)
-- Variable: `PUBLIC_PAGES_BRANCH` (optional, defaults to `gh-pages`)
-- Secret: `PUBLIC_PAGES_PAT` (fine-grained token with write access to the target public repository)
+1. In GitHub, set Pages source to **GitHub Actions**.
+2. Add the following repository variables/secrets:
 
 - Secret: `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID`
 - Secret: `POCKET_RPC`
@@ -68,4 +62,4 @@ Notes:
 
 - The Pages build is static. Server-only routes (`src/app/api/**`) and proxy middleware are excluded during the Pages export build.
 - The normal server deployment flow still works through `npm run build` and `npm run start`.
-- For project pages, static assets are emitted with the target repository base path. For user/org pages repos named `*.github.io`, no project base path is applied.
+- For project pages, static assets are emitted with the repository base path. For user/org pages repos named `*.github.io`, no project base path is applied.
