@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
+    "prebuild": "node scripts/generate-media-manifests.mjs",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production node server.js",
     "lint": "eslint",
-    "scaffold:project-assets": "node scripts/scaffold-project-assets.mjs"
+    "scaffold:project-assets": "node scripts/scaffold-project-assets.mjs",
+    "build:pages": "node scripts/build-pages.mjs"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.21",

@@ -91,12 +91,23 @@ export default function PartnershipmakerSection() {
 
     const loadSlides = async () => {
       try {
-        const response = await fetch("/api/partnershipmaker-images", { cache: "no-store" });
-        if (!response.ok) {
+        const fetchCandidates = ["/partnershipmaker/images/index.json", "/api/partnershipmaker-images"];
+        let payload: { images?: string[] } | null = null;
+
+        for (const resourcePath of fetchCandidates) {
+          const response = await fetch(resourcePath, { cache: "no-store" });
+          if (!response.ok) {
+            continue;
+          }
+
+          payload = (await response.json()) as { images?: string[] };
+          break;
+        }
+
+        if (!payload) {
           throw new Error("Could not load partnershipmaker images.");
         }
 
-        const payload = (await response.json()) as { images?: string[] };
         const imageSources = Array.isArray(payload.images) ? payload.images : [];
         const nextSlides = await Promise.all(
           imageSources.map(async (src, index) => {

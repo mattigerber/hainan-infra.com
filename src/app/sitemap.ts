@@ -4,6 +4,8 @@ import { SITE_URL, PAGE_ROUTES } from "@/lib/seo";
 import { supportedLocales } from "@/i18n/messages";
 import type { Locale } from "@/i18n/types";
 
+export const dynamic = "force-static";
+
 /**
  * Dynamic sitemap covering every locale × every route.
  * Served at /sitemap.xml — consumed by Google Search Console and other crawlers.

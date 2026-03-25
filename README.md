@@ -36,3 +36,29 @@ If `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` is empty, the app keeps browser-inject
 ## Mainnet Configuration
 
 The app is configured for Ethereum mainnet in wallet flows and chain switching.
+
+## Deploy To GitHub Pages
+
+This repository includes a GitHub Actions workflow at [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml) that builds and deploys a static export to GitHub Pages.
+
+Required repository configuration:
+
+1. In GitHub, set Pages source to **GitHub Actions**.
+2. Add the following repository variables/secrets:
+
+- Secret: `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID`
+- Secret: `POCKET_RPC`
+- Secret: `LAVA_RPC`
+- Variable: `NEXT_PUBLIC_SITE_URL`
+- Variable: `NEXT_PUBLIC_TICKET_SALE_CONTRACT_ADDRESS` (optional)
+
+Local validation before pushing:
+
+```bash
+npm run build:pages
+```
+
+Notes:
+
+- The Pages build is static. Server-only routes (`src/app/api/**`) and proxy middleware are excluded during the Pages export build.
+- The normal server deployment flow still works through `npm run build` and `npm run start`.

@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
 
+export const dynamic = "force-static";
+
 /**
  * Dynamic robots.txt — served at /robots.txt.
  * Allows all crawlers on all public routes; 

@@ -22,12 +22,23 @@ const HeroVideo = () => {
 
     const loadHeroMedia = async () => {
       try {
-        const response = await fetch('/api/hero-media', { cache: 'no-store' });
-        if (!response.ok) {
+        const fetchCandidates = ['/hero/media.json', '/api/hero-media'];
+        let payload: Partial<HeroMediaPayload> | null = null;
+
+        for (const resourcePath of fetchCandidates) {
+          const response = await fetch(resourcePath, { cache: 'no-store' });
+          if (!response.ok) {
+            continue;
+          }
+
+          payload = (await response.json()) as Partial<HeroMediaPayload>;
+          break;
+        }
+
+        if (!payload) {
           throw new Error('Could not load hero media.');
         }
 
-        const payload = (await response.json()) as Partial<HeroMediaPayload>;
         if (cancelled) return;
 
         setHeroMedia({

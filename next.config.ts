@@ -3,6 +3,9 @@ import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const NEXT_CONFIG_DIR = dirname(fileURLToPath(import.meta.url));
+const IS_GITHUB_PAGES = process.env.GITHUB_PAGES === "true";
+const REPOSITORY_NAME = process.env.GITHUB_REPOSITORY?.split("/")?.[1] ?? "";
+const PAGES_BASE_PATH = IS_GITHUB_PAGES && REPOSITORY_NAME ? `/${REPOSITORY_NAME}` : "";
 
 const SUPPORTED_LOCALES = ["en", "zh", "ru", "ar"] as const;
 
@@ -61,6 +64,13 @@ function buildCaseRedirects() {
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  output: IS_GITHUB_PAGES ? "export" : undefined,
+  trailingSlash: IS_GITHUB_PAGES,
+  basePath: PAGES_BASE_PATH,
+  assetPrefix: PAGES_BASE_PATH,
+  images: {
+    unoptimized: true,
+  },
 
   turbopack: {
     // Keep module resolution anchored to the frontend app even when npm is run
@@ -75,15 +85,19 @@ const nextConfig: NextConfig = {
     caseSensitiveRoutes: true,
   },
 
-  async redirects() {
-    return [
-      // Canonical home: bare "/" → "/en" (default locale)
-      { source: "/", destination: "/en", permanent: false },
+  ...(IS_GITHUB_PAGES
+    ? {}
+    : {
+        async redirects() {
+          return [
+            // Canonical home: bare "/" → "/en" (default locale)
+            { source: "/", destination: "/en", permanent: false },
 
-      // Capitalised-path redirects for all routes × locales
-      ...buildCaseRedirects(),
-    ];
-  },
+            // Capitalised-path redirects for all routes × locales
+            ...buildCaseRedirects(),
+          ];
+        },
+      }),
 };
 
 export default nextConfig;

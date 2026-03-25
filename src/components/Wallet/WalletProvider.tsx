@@ -10,6 +10,8 @@ import { publicEnv } from '@/lib/env';
 
 export const walletConnectProjectId = publicEnv.walletConnectProjectId;
 const isBrowser = typeof window !== 'undefined';
+const pocketRpcProxyPath = '/api/rpc/pocket';
+const lavaRpcProxyPath = '/api/rpc/lava';
 
 const buildChainTransport = (primaryUrl: string, fallbackUrl: string) => {
   const transports = [];
@@ -29,11 +31,7 @@ const buildChainTransport = (primaryUrl: string, fallbackUrl: string) => {
 };
 
 if (typeof window !== 'undefined') {
-  if (!publicEnv.hasPocketRpcUrl && publicEnv.hasLavaRpcUrl) {
-    console.warn('NEXT_PUBLIC_POCKET_RPC is not configured. Falling back to NEXT_PUBLIC_LAVA_RPC as primary RPC.');
-  } else if (!publicEnv.hasPocketRpcUrl && !publicEnv.hasLavaRpcUrl) {
-    console.warn('Neither NEXT_PUBLIC_POCKET_RPC nor NEXT_PUBLIC_LAVA_RPC is configured. Falling back to default chain RPC.');
-  }
+  console.info('Using server-side RPC proxy endpoints for on-chain reads.');
 }
 
 const config = createConfig({
@@ -59,8 +57,8 @@ const config = createConfig({
     : [],
   transports: {
     [mainnet.id]: buildChainTransport(
-      publicEnv.pocketRpcUrl,
-      publicEnv.lavaRpcUrl
+      pocketRpcProxyPath,
+      lavaRpcProxyPath
     ),
   },
   storage: createStorage({
