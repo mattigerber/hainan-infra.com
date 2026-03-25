@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
 import type { ReactNode } from "react";
 
 import { normalizeLocale } from "@/i18n/routing";
@@ -6,6 +7,10 @@ import { localeMessages } from "@/i18n/messages";
 import { I18nProvider } from "@/i18n/I18nProvider";
 import WalletProvider from "@/components/Wallet/WalletProvider";
 import CookieConsentBanner from "@/components/Legal/CookieConsentBanner";
+import {
+  CONSENT_ACCEPTED_VALUES,
+  COOKIE_CONSENT_COOKIE_NAME,
+} from "@/components/Legal/cookieConsent.constants";
 import type { Locale } from "@/i18n/types";
 
 type LocaleLayoutProps = {
@@ -25,6 +30,11 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   }
 
   const messages = localeMessages[resolvedLocale] ?? localeMessages.en;
+  const cookieStore = await cookies();
+  const consentCookieValue = cookieStore.get(COOKIE_CONSENT_COOKIE_NAME)?.value;
+  const initialHasConsent = Boolean(
+    consentCookieValue && CONSENT_ACCEPTED_VALUES.has(consentCookieValue)
+  );
 
   return (
     <I18nProvider initialLocale={resolvedLocale as Locale}>
@@ -33,7 +43,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       </a>
       <WalletProvider>
         {children}
-        <CookieConsentBanner />
+        <CookieConsentBanner initialHasConsent={initialHasConsent} />
       </WalletProvider>
     </I18nProvider>
   );

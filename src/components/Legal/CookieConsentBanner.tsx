@@ -4,12 +4,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { useI18n } from "@/i18n/I18nProvider";
-
-const COOKIE_CONSENT_VERSION = "v1";
-const COOKIE_CONSENT_STORAGE_KEY = `hip.cookieConsent.${COOKIE_CONSENT_VERSION}`;
-const COOKIE_CONSENT_COOKIE_NAME = COOKIE_CONSENT_STORAGE_KEY;
-const COOKIE_CONSENT_WINDOW_NAME_KEY = COOKIE_CONSENT_STORAGE_KEY;
-const CONSENT_ACCEPTED_VALUES = new Set(["essential", "all", "essentialOnly"]);
+import {
+  CONSENT_ACCEPTED_VALUES,
+  COOKIE_CONSENT_COOKIE_NAME,
+  COOKIE_CONSENT_STORAGE_KEY,
+} from "@/components/Legal/cookieConsent.constants";
 
 const readConsentFromCookie = (): string | null => {
   if (typeof document === "undefined") {
@@ -29,24 +28,6 @@ const readConsentFromCookie = (): string | null => {
   return decodeURIComponent(cookieEntry.slice(cookiePrefix.length));
 };
 
-const readConsentFromWindowName = (): string | null => {
-  if (typeof window === "undefined") {
-    return null;
-  }
-
-  const entries = window.name
-    .split(";")
-    .map((value) => value.trim())
-    .filter(Boolean);
-
-  const match = entries.find((value) => value.startsWith(`${COOKIE_CONSENT_WINDOW_NAME_KEY}=`));
-  if (!match) {
-    return null;
-  }
-
-  return decodeURIComponent(match.slice(`${COOKIE_CONSENT_WINDOW_NAME_KEY}=`.length));
-};
-
 const writeConsentCookie = (value: "essential") => {
   if (typeof document === "undefined") {
     return;
@@ -57,54 +38,24 @@ const writeConsentCookie = (value: "essential") => {
   document.cookie = `${COOKIE_CONSENT_COOKIE_NAME}=${encodeURIComponent(value)}; Expires=${expiresAt}; Max-Age=31536000; Path=/; SameSite=Lax`;
 };
 
-const writeConsentToWindowName = (value: "essential") => {
-  if (typeof window === "undefined") {
-    return;
-  }
-
-  const entries = window.name
-    .split(";")
-    .map((entry) => entry.trim())
-    .filter(Boolean)
-    .filter((entry) => !entry.startsWith(`${COOKIE_CONSENT_WINDOW_NAME_KEY}=`));
-
-  entries.push(`${COOKIE_CONSENT_WINDOW_NAME_KEY}=${encodeURIComponent(value)}`);
-  window.name = entries.join("; ");
-};
-
 const hasSavedCookieConsent = (): boolean => {
-  if (typeof window === "undefined") {
-    return false;
-  }
-
-  try {
-    const value = window.localStorage.getItem(COOKIE_CONSENT_STORAGE_KEY);
-    // Keep backward compatibility with older stored values.
-    if (value && CONSENT_ACCEPTED_VALUES.has(value)) {
-      return true;
-    }
-  } catch {
-    // Continue with cookie fallback.
-  }
-
   const cookieValue = readConsentFromCookie();
-  if (cookieValue && CONSENT_ACCEPTED_VALUES.has(cookieValue)) {
-    return true;
-  }
-
-  const windowNameValue = readConsentFromWindowName();
-  return Boolean(windowNameValue && CONSENT_ACCEPTED_VALUES.has(windowNameValue));
+  return Boolean(cookieValue && CONSENT_ACCEPTED_VALUES.has(cookieValue));
 };
 
-export default function CookieConsentBanner() {
+type CookieConsentBannerProps = {
+  initialHasConsent?: boolean;
+};
+
+export default function CookieConsentBanner({ initialHasConsent = false }: CookieConsentBannerProps) {
   const { t, locale } = useI18n();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(!initialHasConsent);
 
   // Hydration-safe visibility check
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsVisible(!hasSavedCookieConsent());
-  }, []);
+  }, [initialHasConsent]);
 
   const acceptEssentialConsent = () => {
     if (typeof window !== "undefined") {
@@ -118,12 +69,6 @@ export default function CookieConsentBanner() {
         writeConsentCookie("essential");
       } catch {
         // If both storage mechanisms are blocked, still dismiss for this render cycle.
-      }
-
-      try {
-        writeConsentToWindowName("essential");
-      } catch {
-        // Best-effort tab-level fallback.
       }
     }
 

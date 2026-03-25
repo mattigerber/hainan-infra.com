@@ -79,12 +79,12 @@ const HeroVideo = () => {
 
   return (
     <>
-      <div className="w-full">
+      <div className="w-full bg-black">
         <button
           type="button"
           onClick={() => setIsOpen(true)}
           disabled={!heroMedia.videoSrc}
-          className="group relative h-[min(26svh,26rem)] min-h-[13rem] w-full overflow-hidden text-left sm:h-[min(68svh,38rem)] sm:min-h-[18rem]  lg:h-[min(72svh,48rem)]  2xl:h-[min(76svh,56rem)]"
+          className="group relative h-[min(26svh,26rem)] min-h-[13rem] w-full overflow-hidden bg-black text-left sm:h-[min(68svh,38rem)] sm:min-h-[18rem]  lg:h-[min(72svh,48rem)]  2xl:h-[min(76svh,56rem)]"
           // className="group relative h-[min(50svh,26rem)] min-h-[13rem] w-full overflow-hidden border-4 border-white bg-[radial-gradient(circle_at_22%_20%,rgba(255,255,255,0.22),transparent_32%),linear-gradient(135deg,#1c1c1c,#080808)] text-left sm:h-[min(68svh,38rem)] sm:min-h-[18rem] sm:border-6 lg:h-[min(72svh,48rem)] lg:border-8 2xl:h-[min(76svh,56rem)]"
           aria-label={heroMedia.videoSrc ? t('hero.openVideo') : t('hero.videoUnavailable')}
         >
