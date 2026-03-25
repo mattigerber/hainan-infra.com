@@ -18,12 +18,12 @@ export default function DownloadsContent() {
 
       <h2>§ 1. AS-IS PROVISION & PASSIVE CONDUIT</h2>
       <p>
-        All files, technical documents, legal deeds, and prospectuses are provided on an "as-is" and "as-available" basis. 
+        All files, technical documents, legal deeds, and prospectuses are provided on an &quot;as-is&quot; and &quot;as-available&quot; basis. 
         The Company acts strictly as a passive conduit for fetching and displaying these third-party documents. 
         The Company makes no warranties regarding their accuracy, legal validity, completeness, or security.
       </p>
 
-      <h2>§ 2. STRICT EXEMPTION FROM SOLICITATION (THE "PROSPECTUS" DISCLAIMER)</h2>
+      <h2>§ 2. STRICT EXEMPTION FROM SOLICITATION (THE &quot;PROSPECTUS&quot; DISCLAIMER)</h2>
       <p>
         The availability, downloading, or viewing of any Real World Asset (RWA) prospectus, pitch deck, or financial 
         document through this Interface does <strong>not</strong> constitute an offer to sell, a solicitation of an offer 

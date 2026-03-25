@@ -36,9 +36,15 @@ const interpolate = (template: string, values?: TranslateValues) => {
 
 const I18nContext = createContext<I18nContextValue | null>(null);
 
-export function I18nProvider({ children }: { children: ReactNode }) {
+type I18nProviderProps = {
+  children: ReactNode;
+  initialLocale?: Locale;
+};
+
+export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
   const pathname = usePathname();
   const [storedLocale, setStoredLocale] = useState<Locale>(() => {
+    if (initialLocale) return initialLocale;
     if (typeof window === "undefined") return defaultLocale;
 
     const routeLocale = getLocaleFromPathname(window.location.pathname);

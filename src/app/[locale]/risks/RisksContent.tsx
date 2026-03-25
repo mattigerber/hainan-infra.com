@@ -33,7 +33,7 @@ export default function RisksContent() {
       <h2>§ 3. EXPLICIT NO-TOKEN ISSUANCE & ABSOLUTE ILLIQUIDITY</h2>
       <p>
         You expressly acknowledge that contributing stablecoins to a project via the Interface <strong>does not 
-        result in the issuance, minting, or receipt of any cryptographic token, digital asset, or "ticket."</strong>
+        result in the issuance, minting, or receipt of any cryptographic token, digital asset, or &quot;ticket.&quot;</strong>
       </p>
       <ul className="list-disc ml-6 space-y-2">
         <li>
@@ -48,7 +48,7 @@ export default function RisksContent() {
         <li>
           <strong>(c) No Common Enterprise:</strong> You acknowledge that your Smart Contract Ledger Entry represents 
           a distinct, mathematically autonomous record on a public blockchain. Your contribution does not constitute 
-          a pooling of funds into a "common enterprise" managed, operated, or promoted by the Company, nor do you 
+          a pooling of funds into a &quot;common enterprise&quot; managed, operated, or promoted by the Company, nor do you 
           expect profits derived from the essential managerial efforts of the Company.
         </li>
       </ul>
@@ -60,12 +60,12 @@ export default function RisksContent() {
       <ul className="list-disc ml-6 space-y-2">
         <li>
           <strong>(a) De-Pegging Risk:</strong> You acknowledge that these settlement assets carry their own 
-          counterparty risks, including the severe risk of "de-pegging" from their designated fiat value, smart 
+          counterparty risks, including the severe risk of &quot;de-pegging&quot; from their designated fiat value, smart 
           contract exploits, or the centralized freezing of funds by their issuers (e.g., Circle, Tether).
         </li>
         <li>
           <strong>(b) Protocol Contagion & DeFi Composability:</strong> RWA projects often rely on other decentralized 
-          protocols for liquidity, collateral, or yield generation. You acknowledge the risk of "protocol contagion," 
+          protocols for liquidity, collateral, or yield generation. You acknowledge the risk of &quot;protocol contagion,&quot; 
           where a failure in a connected third-party protocol (even if not directly integrated with the Interface) 
           negatively impacts the value or liquidity of your Ledger Entry. The Company is not responsible for any 
           financial loss resulting from the failure, devaluation, or freezing of the underlying stablecoins or 
@@ -82,13 +82,13 @@ export default function RisksContent() {
         <li>
           <strong>(a) Mathematical and Economic Modeling Risk:</strong> RWA projects may rely on complex economic 
           models, yield projections, and mathematical formulas to determine Ledger Entry values or distribution rates. 
-          You acknowledge that these models are subject to human error, unforeseen economic shifts, or "Black Swan" 
+          You acknowledge that these models are subject to human error, unforeseen economic shifts, or &quot;Black Swan&quot; 
           events. The Company bears no liability for losses arising from the failure of the underlying economic or 
           mathematical logic of any RWA project.
         </li>
         <li>
           <strong>(b) Reliance on Third-Party Data Oracles:</strong> The Protocol and the Interface may rely on 
-          external data feeds ("Oracles") to determine asset valuations, yields, or other critical parameters. You 
+          external data feeds (&quot;Oracles&quot;) to determine asset valuations, yields, or other critical parameters. You 
           acknowledge that Oracles are subject to manipulation, technical failure, or data inaccuracy. The Company 
           bears no liability for losses resulting from corrupted, delayed, or inaccurate Oracle data.
         </li>
@@ -165,11 +165,11 @@ export default function RisksContent() {
       <p>
         While the Interface operates permissionlessly as a routing facilitator, the underlying Real World Assets 
         and centralized settlement stablecoins (e.g., USDC, USDT) are governed by physical legal entities subject 
-        to international Anti-Money Laundering (AML) and Know Your Customer (KYC) regulations (the "Travel Rule"). 
+        to international Anti-Money Laundering (AML) and Know Your Customer (KYC) regulations (the &quot;Travel Rule&quot;). 
         You expressly acknowledge that attempting to redeem, liquidate, or bridge your Smart Contract Ledger Entries 
         into fiat currency may subject you to rigorous identity verification and source-of-funds checks by third-party 
         centralized entities. The Company operates strictly as a frontend facilitator and has no control over these 
-        fiat "choke points." Your assets may be permanently frozen by third-party issuers at the redemption layer 
+        fiat &quot;choke points.&quot; Your assets may be permanently frozen by third-party issuers at the redemption layer 
         if you fail their compliance checks.
       </p>
 
@@ -186,7 +186,7 @@ export default function RisksContent() {
       <p>
         Interacting with complex RWA smart contracts frequently requires executing off-chain cryptographic signatures 
         (e.g., stablecoin approvals, EIP-712 typed data) via your independent injected wallet. You assume all risks 
-        associated with "blind signing" transactions where your third-party wallet provider fails to human-readably 
+        associated with &quot;blind signing&quot; transactions where your third-party wallet provider fails to human-readably 
         parse the contract payload. The Company bears no liability for malicious payloads signed, or assets lost, due 
         to the limitations of your chosen wallet software.
       </p>
