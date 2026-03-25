@@ -1,4 +1,4 @@
-import { access, cp, mkdir, readdir, readFile, rename } from "node:fs/promises";
+import { access, cp, mkdir, readdir, readFile, rename, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { spawn } from "node:child_process";
 
@@ -155,6 +155,41 @@ const mirrorExportForLegacyPrefixes = async () => {
   }
 };
 
+const ROOT_REDIRECT_HTML = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content="0;url=/en/" />
+    <link rel="canonical" href="/en/" />
+  </head>
+  <body>
+    <p>Redirecting to <a href="/en/">/en/</a>...</p>
+    <script>
+      location.replace('/en/');
+    </script>
+  </body>
+</html>
+`;
+
+const writeRootRedirectPages = async () => {
+  if (!(await exists(EXPORT_OUTPUT_DIR))) {
+    return;
+  }
+
+  const prefixes = await getLegacyPrefixes();
+  const targets = [EXPORT_OUTPUT_DIR, ...prefixes.map((prefix) => path.join(EXPORT_OUTPUT_DIR, prefix))];
+
+  for (const targetDir of targets) {
+    if (!(await exists(targetDir))) {
+      continue;
+    }
+
+    await writeFile(path.join(targetDir, "index.html"), ROOT_REDIRECT_HTML, "utf8");
+  }
+};
+
 try {
   await run("node", ["scripts/generate-media-manifests.mjs"], process.env);
   await disableServerOnlyArtifacts();
@@ -165,6 +200,7 @@ try {
   });
 
   await mirrorExportForLegacyPrefixes();
+  await writeRootRedirectPages();
 } finally {
   await restoreServerOnlyArtifacts();
 }
