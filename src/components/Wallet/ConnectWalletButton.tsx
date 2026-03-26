@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useSyncExternalStore } from 'react';
+import { useState, useRef, useEffect, useSyncExternalStore, useCallback } from 'react';
 import { useAccount, useConnect, useDisconnect, useSwitchChain, useChainId } from 'wagmi';
 import { mainnet } from 'wagmi/chains';
 
@@ -54,6 +54,24 @@ const ConnectWalletButton = () => {
   const isArabic = locale === 'ar';
   const isSmallViewport = typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches;
   const shouldShowConnectorChoice = isHydrated && hasConnectorChoice;
+  const walletConnectWarmupStartedRef = useRef(false);
+
+  const warmupWalletConnect = useCallback(() => {
+    if (walletConnectWarmupStartedRef.current) {
+      return;
+    }
+
+    if (!walletConnectConnector || !isWalletConnectConfigured) {
+      return;
+    }
+
+    walletConnectWarmupStartedRef.current = true;
+
+    // Pre-initialize provider to avoid first-click QR modal lag.
+    void walletConnectConnector.getProvider?.().catch(() => {
+      walletConnectWarmupStartedRef.current = false;
+    });
+  }, [walletConnectConnector, isWalletConnectConfigured]);
 
   const isUserRejectedError = (value: unknown) => {
     const message = parseErrorMessage(value, '').toLowerCase();
@@ -166,6 +184,20 @@ const ConnectWalletButton = () => {
     };
   }, [showPopup, showConnectorMenu]);
 
+  useEffect(() => {
+    if (!isHydrated || typeof window === 'undefined') {
+      return;
+    }
+
+    const warmupTimer = window.setTimeout(() => {
+      warmupWalletConnect();
+    }, 900);
+
+    return () => {
+      window.clearTimeout(warmupTimer);
+    };
+  }, [isHydrated, warmupWalletConnect]);
+
   const handleDisconnect = () => {
     try {
       disconnect();
@@ -225,6 +257,7 @@ const ConnectWalletButton = () => {
     }
 
     if (hasConnectorChoice && !isSmallViewport) {
+      warmupWalletConnect();
       setShowConnectorMenu((current) => !current);
       return true;
     }
@@ -336,6 +369,8 @@ const ConnectWalletButton = () => {
             type="button"
             className="inline-flex w-full min-h-[42px] items-center justify-center gap-2 border border-white bg-white px-3 py-2 font-playfair text-xs text-black transition hover:bg-white/90 sm:w-auto sm:px-4 sm:text-sm"
             onClick={handleConnect}
+            onMouseEnter={warmupWalletConnect}
+            onFocus={warmupWalletConnect}
             disabled={isConnecting}
             aria-haspopup={shouldShowConnectorChoice ? 'menu' : undefined}
             aria-expanded={shouldShowConnectorChoice ? showConnectorMenu : undefined}
