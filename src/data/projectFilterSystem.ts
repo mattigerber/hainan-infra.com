@@ -197,6 +197,65 @@ const normalizeListedProject = (project: PartialListedProject): ListedProject =>
   documents: Array.isArray(project.documents) ? project.documents : [],
 });
 
+const projectImageExtensions = [".webp", ".avif", ".jpg", ".jpeg", ".png", ".gif"] as const;
+
+const hasProjectImageExtension = (sourcePath: string) =>
+  projectImageExtensions.some((extension) => sourcePath.toLowerCase().endsWith(extension));
+
+const getPathWithoutExtension = (sourcePath: string) => {
+  const extension = sourcePath.match(/\.[^./?#]+(?=($|[?#]))/)?.[0] ?? "";
+  return extension.length > 0 ? sourcePath.slice(0, -extension.length) : sourcePath;
+};
+
+const resolveGalleryImageSource = async (sourcePath: string): Promise<string> => {
+  if (!hasProjectImageExtension(sourcePath)) {
+    return sourcePath;
+  }
+
+  const basePath = getPathWithoutExtension(sourcePath);
+  const candidates = Array.from(
+    new Set([...projectImageExtensions.map((extension) => `${basePath}${extension}`), sourcePath])
+  );
+
+  for (const candidate of candidates) {
+    try {
+      const response = await fetch(candidate, {
+        method: "HEAD",
+        cache: "no-store",
+      });
+
+      if (response.ok) {
+        return candidate;
+      }
+    } catch {
+      // Continue trying other extensions.
+    }
+  }
+
+  return sourcePath;
+};
+
+const resolveProjectGallerySources = async (project: ListedProject): Promise<ListedProject> => {
+  const resolvedGallery = await Promise.all(
+    project.gallery.map(async (item) => {
+      if (item.kind !== "image") {
+        return item;
+      }
+
+      const resolvedSource = await resolveGalleryImageSource(item.src);
+      return {
+        ...item,
+        src: resolvedSource,
+      };
+    })
+  );
+
+  return {
+    ...project,
+    gallery: resolvedGallery,
+  };
+};
+
 const isIndexEntry = (
   value: unknown
 ): value is { id: string; category: CategoryId; status: IndexProjectStatus } => {
@@ -331,11 +390,12 @@ export const loadProjectsFromFolders = async (): Promise<Record<CategoryId, List
 
       const projectData: unknown = await projectResponse.json();
       const parsedProject = parseProjectFromFolder(projectData, entry.status);
+      const projectWithResolvedGallery = await resolveProjectGallerySources(parsedProject);
 
       return {
         category: entry.category,
         project: {
-          ...parsedProject,
+          ...projectWithResolvedGallery,
           id: entry.id,
           listingStatus: entry.status,
         },

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { readFile } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import HeroVideo from "@/components/Hero/HeroVideo";
@@ -19,29 +19,86 @@ type HeroMediaPayload = {
   videoSrc: string | null;
 };
 
-const heroMediaFallback: HeroMediaPayload = {
-  coverImageSrc: "/hero/cover.jpeg",
-  videoSrc: null,
+const heroImageExtensions = new Set([".webp", ".avif", ".jpg", ".jpeg", ".png", ".gif"]);
+const heroExtensionPriority = new Map([
+  [".avif", 0],
+  [".webp", 1],
+  [".jpg", 2],
+  [".jpeg", 3],
+  [".png", 4],
+  [".gif", 5],
+]);
+
+const getDiscoveredHeroCoverImage = async (): Promise<string | null> => {
+  try {
+    const heroDir = path.join(process.cwd(), "public", "hero");
+    const entries = await readdir(heroDir, { withFileTypes: true });
+    const imageFiles = entries
+      .filter((entry) => entry.isFile())
+      .map((entry) => entry.name)
+      .filter((name) => heroImageExtensions.has(path.extname(name).toLowerCase()))
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }));
+
+    const coverCandidates = imageFiles.filter((name) => /^cover\./i.test(name));
+    const coverFile = (coverCandidates.length > 0 ? coverCandidates : imageFiles).sort((a, b) => {
+      const extensionA = path.extname(a).toLowerCase();
+      const extensionB = path.extname(b).toLowerCase();
+      const rankA = heroExtensionPriority.get(extensionA) ?? Number.MAX_SAFE_INTEGER;
+      const rankB = heroExtensionPriority.get(extensionB) ?? Number.MAX_SAFE_INTEGER;
+
+      if (rankA !== rankB) {
+        return rankA - rankB;
+      }
+
+      return a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" });
+    })[0] ?? null;
+    return coverFile ? `/hero/${encodeURIComponent(coverFile)}` : null;
+  } catch {
+    return null;
+  }
+};
+
+const isExistingPublicAsset = async (sourcePath: string | null): Promise<boolean> => {
+  if (!sourcePath) {
+    return false;
+  }
+
+  const normalizedPath = sourcePath.startsWith("/") ? sourcePath.slice(1) : sourcePath;
+  const diskPath = path.join(process.cwd(), "public", decodeURIComponent(normalizedPath));
+
+  try {
+    await access(diskPath);
+    return true;
+  } catch {
+    return false;
+  }
 };
 
 const getInitialHeroMedia = async (): Promise<HeroMediaPayload> => {
+  const discoveredCover = await getDiscoveredHeroCoverImage();
+
   try {
     const mediaPath = path.join(process.cwd(), "public", "hero", "media.json");
     const mediaFile = await readFile(mediaPath, "utf8");
     const payload = JSON.parse(mediaFile) as Partial<HeroMediaPayload>;
+    const jsonCover =
+      typeof payload.coverImageSrc === "string" && payload.coverImageSrc.length > 0
+        ? payload.coverImageSrc
+        : null;
+    const resolvedCover = (await isExistingPublicAsset(jsonCover)) ? jsonCover : discoveredCover;
 
     return {
-      coverImageSrc:
-        typeof payload.coverImageSrc === "string" && payload.coverImageSrc.length > 0
-          ? payload.coverImageSrc
-          : heroMediaFallback.coverImageSrc,
+      coverImageSrc: resolvedCover,
       videoSrc:
         typeof payload.videoSrc === "string" && payload.videoSrc.length > 0
           ? payload.videoSrc
           : null,
     };
   } catch {
-    return heroMediaFallback;
+    return {
+      coverImageSrc: discoveredCover,
+      videoSrc: null,
+    };
   }
 };
 

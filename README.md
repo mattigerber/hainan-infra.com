@@ -41,6 +41,20 @@ The app is configured for Ethereum mainnet in wallet flows and chain switching.
 
 This repository includes a GitHub Actions workflow at [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml) that builds and deploys static output directly to GitHub Pages in this same repository.
 
+CI/CD flow:
+
+- CI workflow: `.github/workflows/ci.yml` runs on every pull request and push to `main` (TypeScript check + production build + Pages export build).
+- Deploy workflow: `.github/workflows/deploy-pages.yml` deploys only after the `CI` workflow succeeds on `main` (or via manual `workflow_dispatch`).
+
+Recommended GitHub branch protection for `main`:
+
+1. Require a pull request before merging.
+2. Require status checks to pass before merging.
+3. Select required check: `CI / validate`.
+4. Optionally require approvals and dismiss stale approvals.
+
+With this in place, buggy code should be blocked before merge, and deployment will only happen for commits that passed CI.
+
 Required repository configuration:
 
 1. In GitHub, set Pages source to **GitHub Actions**.

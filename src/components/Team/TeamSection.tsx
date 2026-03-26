@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 import { useI18n } from "@/i18n/I18nProvider";
 
 type TeamMember = {
   id: string;
   name: string;
   role: string;
-  imagePath: string;
   linkedinUrl?: string;
 };
 
@@ -17,21 +17,18 @@ const TEAM_MEMBERS: TeamMember[] = [
     id: "matti",
     name: "Matti Gerber",
     role: "Managing Director Global",
-    imagePath: "/team/matti.jpg",
     linkedinUrl: "https://www.linkedin.com/in/matti-gerber/",
   },
   {
     id: "dean",
     name: "Dean Zhang",
     role: "Managing Director China",
-    imagePath: "/team/dean.jpg",
     linkedinUrl: "https://www.linkedin.com/in/dean-zhang-张耕源-4819229b/",
   },
   {
     id: "ertugrul",
     name: "Ertugrul Kücükkaya",
     role: "IT Intern",
-    imagePath: "/team/ertugrul.jpg",
     linkedinUrl: "https://www.linkedin.com/in/ertugrulkucukkaya/",
   },
 ];
@@ -41,6 +38,38 @@ const LINKEDIN_ICON_PATH = "/socials/LINKEDIN.svg";
 export default function TeamSection() {
   const { t, locale } = useI18n();
   const headingAlignmentClass = locale === "ar" ? "text-right" : "text-left";
+  const [teamImageMap, setTeamImageMap] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadTeamImageMap = async () => {
+      try {
+        const response = await fetch("/api/team-images", { cache: "no-store" });
+        if (!response.ok) {
+          return;
+        }
+
+        const payload = (await response.json()) as { images?: Record<string, string> };
+        if (!cancelled && payload.images && typeof payload.images === "object") {
+          setTeamImageMap(payload.images);
+        }
+      } catch {
+        // Keep cards visible even if image discovery fails.
+      }
+    };
+
+    void loadTeamImageMap();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const membersWithResolvedImage = useMemo(
+    () => TEAM_MEMBERS.map((member) => ({ ...member, imagePath: teamImageMap[member.id] ?? null })),
+    [teamImageMap]
+  );
 
   return (
     <section className="bg-black px-8 pb-16 pt-10 text-white sm:px-6 md:px-10 md:pt-14">
@@ -55,19 +84,23 @@ export default function TeamSection() {
         </div>
 
         <div className="grid items-stretch gap-5 md:grid-cols-3 md:gap-6">
-          {TEAM_MEMBERS.map((member) => (
+          {membersWithResolvedImage.map((member) => (
             <article
               key={member.id}
               className="group flex h-full flex-col border border-white/15 bg-white/[0.03] p-4 sm:p-5"
             >
               <div className="relative h-[20rem] w-full overflow-hidden bg-black/40 sm:h-[22rem] md:h-[24rem] lg:h-[26rem]">
-                <Image
-                  src={member.imagePath}
-                  alt={member.name}
-                  fill
-                  className="h-full w-full object-contain object-center"
-                  sizes="(max-width: 768px) 92vw, (max-width: 1200px) 31vw, 29vw"
-                />
+                {member.imagePath ? (
+                  <Image
+                    src={member.imagePath}
+                    alt={member.name}
+                    fill
+                    className="h-full w-full object-contain object-center"
+                    sizes="(max-width: 768px) 92vw, (max-width: 1200px) 31vw, 29vw"
+                  />
+                ) : (
+                  <div className="h-full w-full bg-black/30" aria-hidden="true" />
+                )}
               </div>
 
               <div className="mt-4 flex flex-1 items-start justify-between gap-3">
