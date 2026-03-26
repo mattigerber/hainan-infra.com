@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { normalizeLocale } from "@/i18n/routing";
 import { localeMessages } from "@/i18n/messages";
 import { I18nProvider } from "@/i18n/I18nProvider";
-import CookieConsentBanner from "@/components/Legal/CookieConsentBanner";
+import CookieConsentGate from "@/components/Legal/CookieConsentGate";
 import type { Locale } from "@/i18n/types";
 
 type LocaleLayoutProps = {
@@ -32,7 +32,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         {messages["common.skipToMain"]}
       </a>
       {children}
-      <CookieConsentBanner initialHasConsent={initialHasConsent} />
+      <CookieConsentGate initialHasConsent={initialHasConsent} />
     </I18nProvider>
   );
 }

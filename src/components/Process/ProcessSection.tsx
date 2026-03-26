@@ -1,6 +1,5 @@
 "use client";
 
-import styles from "./ProcessSection.module.css";
 import { useI18n } from "@/i18n/I18nProvider";
 
 const stageOrder = ["discovery", "listing", "closure"] as const;
@@ -21,16 +20,16 @@ export default function ProcessSection() {
   const headingAlignmentClass = isArabic ? "text-right" : "text-left";
 
   return (
-    <section id="process" className={styles.sectionRoot}>
+    <section id="process" className="process-section-root">
       <div className={`mx-auto w-full max-w-7xl px-8 sm:px-6 md:px-10 2xl:max-w-[90rem] ${headingAlignmentClass}`}>
-        <div className={styles.sectionLabel}>{t("process.section.label")}</div>
+        <div className="process-section-label">{t("process.section.label")}</div>
         <h2 className={`font-playfair text-3xl font-bold uppercase leading-tight text-slate-900 sm:text-4xl lg:text-5xl ${headingAlignmentClass}`}>
           {t("process.section.title")}
         </h2>
 
-        <div className={styles.flowStack}>
-          <section className={styles.flowBlock} aria-label={t("process.sellSideLabel")}>
-            <div className={styles.flowHeader}>
+        <div className="process-flow-stack">
+          <section className="process-flow-block" aria-label={t("process.sellSideLabel")}>
+            <div className="process-flow-header">
               <h3 className={`font-playfair text-xl font-semibold text-slate-800 sm:text-2xl ${headingAlignmentClass}`}>
                 {t("process.sellSideLabel")}
               </h3>
@@ -38,22 +37,22 @@ export default function ProcessSection() {
                 {t("process.sellSideAudience")}
               </p>
             </div>
-            <div className={styles.stageGrid}>
+            <div className="process-stage-grid">
               {stageOrder.map((stageKey, index) => (
-                <article key={stageKey} className={styles.stageCard}>
-                  <span className={styles.stageNumber}>{String(index + 1).padStart(2, "0")}</span>
+                <article key={stageKey} className="process-stage-card">
+                  <span className="process-stage-number">{String(index + 1).padStart(2, "0")}</span>
                   {(() => {
                     const { label, timeframe } = splitStageTitle(t(`process.stages.${stageKey}.title`));
                     return (
-                      <h4 className={`font-playfair ${styles.stageTitle}`}>
-                        <span className={styles.stageTitleLine}>
+                      <h4 className="font-playfair process-stage-title">
+                        <span className="process-stage-title-line">
                           <span>{label}</span>
-                          {timeframe ? <span className={styles.stageTimeframe}>{timeframe}</span> : null}
+                          {timeframe ? <span className="process-stage-timeframe">{timeframe}</span> : null}
                         </span>
                       </h4>
                     );
                   })()}
-                  <p className={`font-[var(--font-eb-garamond)] ${styles.stageDescription}`}>
+                  <p className="font-[var(--font-eb-garamond)] process-stage-description">
                     {t(`process.stages.${stageKey}.description`)}
                   </p>
                 </article>
@@ -61,8 +60,8 @@ export default function ProcessSection() {
             </div>
           </section>
 
-          <section className={styles.flowBlock} aria-label={t("process.buySideLabel")}>
-            <div className={styles.flowHeader}>
+          <section className="process-flow-block" aria-label={t("process.buySideLabel")}>
+            <div className="process-flow-header">
               <h3 className={`font-playfair text-xl font-semibold text-slate-800 sm:text-2xl ${headingAlignmentClass}`}>
                 {t("process.buySideLabel")}
               </h3>
@@ -70,24 +69,24 @@ export default function ProcessSection() {
                 {t("process.buySideAudience")}
               </p>
             </div>
-            <div className={styles.stageGrid}>
+            <div className="process-stage-grid">
               {buySideStageOrder.map((stageKey, index) => (
-                <article key={stageKey} className={styles.stageCard}>
-                  <span className={styles.stageNumber}>{String(index + 1).padStart(2, "0")}</span>
+                <article key={stageKey} className="process-stage-card">
+                  <span className="process-stage-number">{String(index + 1).padStart(2, "0")}</span>
                   {(() => {
                     const { label, timeframe } = splitStageTitle(
                       t(`process.buySide.stages.${stageKey}.title`)
                     );
                     return (
-                      <h4 className={`font-playfair ${styles.stageTitle}`}>
-                        <span className={styles.stageTitleLine}>
+                      <h4 className="font-playfair process-stage-title">
+                        <span className="process-stage-title-line">
                           <span>{label}</span>
-                          {timeframe ? <span className={styles.stageTimeframe}>{timeframe}</span> : null}
+                          {timeframe ? <span className="process-stage-timeframe">{timeframe}</span> : null}
                         </span>
                       </h4>
                     );
                   })()}
-                  <p className={`font-[var(--font-eb-garamond)] ${styles.stageDescription}`}>
+                  <p className="font-[var(--font-eb-garamond)] process-stage-description">
                     {t(`process.buySide.stages.${stageKey}.description`)}
                   </p>
                 </article>
