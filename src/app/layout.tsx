@@ -48,11 +48,6 @@ const playfairDisplay = localFont({
       style: "normal",
       weight: "400 900",
     },
-    {
-      path: "../../public/fonts/Playfair_Display/PlayfairDisplay-Italic-VariableFont_wght.ttf",
-      style: "italic",
-      weight: "400 900",
-    },
   ],
   variable: "--font-playfair-display",
   display: "swap",
@@ -61,14 +56,9 @@ const playfairDisplay = localFont({
 const ebGaramond = localFont({
   src: [
     {
-      path: "../../public/fonts/EB_Garamond/EBGaramond-VariableFont_wght.ttf",
+      path: "../../public/fonts/EB_Garamond/static/EBGaramond-Regular.ttf",
       style: "normal",
-      weight: "400 800",
-    },
-    {
-      path: "../../public/fonts/EB_Garamond/EBGaramond-Italic-VariableFont_wght.ttf",
-      style: "italic",
-      weight: "400 800",
+      weight: "400",
     },
   ],
   variable: "--font-eb-garamond",

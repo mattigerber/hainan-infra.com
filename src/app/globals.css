@@ -6,7 +6,7 @@
 
 body {
   @apply bg-black text-white font-serif;
-  font-family: var(--font-playfair-display), var(--font-eb-garamond), serif;
+  font-family: var(--font-playfair-display), serif;
 }
 
 :focus-visible {
