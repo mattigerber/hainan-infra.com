@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useI18n } from '@/i18n/I18nProvider';
+import { useViewportSize } from '@/hooks/useViewportSize';
 
 type HeroMediaPayload = {
   coverImageSrc: string | null;
@@ -16,7 +17,9 @@ type HeroVideoProps = {
 const HeroVideo = ({ initialHeroMedia }: HeroVideoProps) => {
   const { t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
+  const { width } = useViewportSize();
   const heroMedia = initialHeroMedia;
+  const coverQuality = width > 0 && width < 640 ? 52 : 75;
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -59,6 +62,7 @@ const HeroVideo = ({ initialHeroMedia }: HeroVideoProps) => {
               alt={t('hero.coverAlt')}
               fill
               sizes="(max-width: 640px) calc(100vw - 4rem), (max-width: 1024px) calc(100vw - 5rem), (max-width: 1536px) 1280px, 1440px"
+              quality={coverQuality}
               preload
               fetchPriority="high"
               className="absolute inset-0 h-full w-full object-contain sm:object-cover"
