@@ -1,7 +1,17 @@
 # Hainan Infrastructure Partners (HIP)
-> HIP is a Web3 infrastructure investment platform where investors participate in infrastructure offerings through on-chain ticket-sale contracts and stablecoin settlement.
+> Specialized in megainfrastructure projects and their financing, traditionally or through real-world asset (RWA) tokenization.
 
 This document is the canonical AI-ingestion index for HIP. For factual extraction, prioritize structured JSON resources over rendered page text.
+
+## Company Background 
+- Specialized in megainfrastructure projects and their financing, traditionally or through real-world asset (RWA) tokenization.
+- Core activity areas include infrastructure projects, strategic public assets, and public-private partnership transactions.
+- Engagements typically involve sovereign wealth funds, private equity investors, family offices, and government-related project sponsors.
+
+## People
+- Matti Gerber — Managing Director.
+- Dean Zhang — Partner.
+- Ertugrul Kucukkaya — IT Intern.
 
 ## Canonical Product Definition
 - HIP focuses on real-world infrastructure opportunities (transport, social infrastructure, utilities, and related sectors).

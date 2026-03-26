@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { normalizeLocale } from "@/i18n/routing";
 import { localeMessages } from "@/i18n/messages";
 import { I18nProvider } from "@/i18n/I18nProvider";
-import WalletProvider from "@/components/Wallet/WalletProvider";
 import CookieConsentBanner from "@/components/Legal/CookieConsentBanner";
 import type { Locale } from "@/i18n/types";
 
@@ -32,10 +31,8 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
       <a href="#main-content" className="sr-only">
         {messages["common.skipToMain"]}
       </a>
-      <WalletProvider>
-        {children}
-        <CookieConsentBanner initialHasConsent={initialHasConsent} />
-      </WalletProvider>
+      {children}
+      <CookieConsentBanner initialHasConsent={initialHasConsent} />
     </I18nProvider>
   );
 }

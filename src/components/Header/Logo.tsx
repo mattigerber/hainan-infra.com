@@ -8,6 +8,7 @@ const Logo = () => (
       alt="Logo"
       width={156}
       height={52}
+      preload
       className="h-11 w-auto sm:h-10 md:h-11"
     />
   </div>

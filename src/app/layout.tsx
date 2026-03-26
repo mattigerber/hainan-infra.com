@@ -15,7 +15,8 @@ export const metadata: Metadata = {
     template: "%s | Hainan Infrastructure Partners",
     default: "Hainan Infrastructure Partners",
   },
-  description: "We honor the great builders of Megainfrastructure.",
+  // description:"Hainan Infrastructure Partners is a cross-border infrastructure advisory platform supporting transaction execution and capital coordination between Chinese counterparties and international institutional investors.",
+  description:"We honor great builders of Infrastructure.",
   robots: {
     index: true,
     follow: true,
@@ -72,6 +73,7 @@ const ebGaramond = localFont({
   ],
   variable: "--font-eb-garamond",
   display: "swap",
+  preload: false,
 });
 
 export default function RootLayout({
@@ -85,8 +87,25 @@ export default function RootLayout({
     '@type': 'Organization',
     name: 'Hainan Infrastructure Partners',
     url: 'https://hainan-infra.com',
-    logo: 'https://hainan-infra.com/logo.png',
+    // logo: 'https://hainan-infra.com/logo.png',
     description: 'Offering tokenization, financing, and investment in global infrastructure projects.',
+    employee: [
+      {
+        '@type': 'Person',
+        name: 'Matti Gerber',
+        jobTitle: 'Managing Director',
+      },
+      {
+        '@type': 'Person',
+        name: 'Dean Zhang',
+        jobTitle: 'Partner',
+      },
+      {
+        '@type': 'Person',
+        name: 'Ertugrul Kucukkaya',
+        jobTitle: 'IT Intern',
+      },
+    ],
     sameAs: [
       //! UPDATE THESE LINKS TO YOUR ACTUAL SOCIAL PROFILES
       "https://www.linkedin.com/company/hainan-infrastructure-partners/"

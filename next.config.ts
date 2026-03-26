@@ -87,7 +87,7 @@ const nextConfig: NextConfig = {
   basePath: PAGES_BASE_PATH,
   assetPrefix: PAGES_BASE_PATH,
   images: {
-    unoptimized: true,
+    unoptimized: IS_GITHUB_PAGES,
   },
 
   turbopack: {

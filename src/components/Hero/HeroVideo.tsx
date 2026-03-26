@@ -9,60 +9,14 @@ type HeroMediaPayload = {
   videoSrc: string | null;
 };
 
-const HeroVideo = () => {
+type HeroVideoProps = {
+  initialHeroMedia: HeroMediaPayload;
+};
+
+const HeroVideo = ({ initialHeroMedia }: HeroVideoProps) => {
   const { t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
-  const [heroMedia, setHeroMedia] = useState<HeroMediaPayload>({
-    coverImageSrc: null,
-    videoSrc: null,
-  });
-
-  useEffect(() => {
-    let cancelled = false;
-
-    const loadHeroMedia = async () => {
-      try {
-        const fetchCandidates = ['/hero/media.json', '/api/hero-media'];
-        let payload: Partial<HeroMediaPayload> | null = null;
-
-        for (const resourcePath of fetchCandidates) {
-          const response = await fetch(resourcePath, { cache: 'no-store' });
-          if (!response.ok) {
-            continue;
-          }
-
-          payload = (await response.json()) as Partial<HeroMediaPayload>;
-          break;
-        }
-
-        if (!payload) {
-          throw new Error('Could not load hero media.');
-        }
-
-        if (cancelled) return;
-
-        setHeroMedia({
-          coverImageSrc:
-            typeof payload.coverImageSrc === 'string' && payload.coverImageSrc.length > 0
-              ? payload.coverImageSrc
-              : null,
-          videoSrc:
-            typeof payload.videoSrc === 'string' && payload.videoSrc.length > 0
-              ? payload.videoSrc
-              : null,
-        });
-      } catch {
-        if (cancelled) return;
-        setHeroMedia({ coverImageSrc: null, videoSrc: null });
-      }
-    };
-
-    void loadHeroMedia();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const heroMedia = initialHeroMedia;
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -104,8 +58,9 @@ const HeroVideo = () => {
               src={heroMedia.coverImageSrc}
               alt={t('hero.coverAlt')}
               fill
-              sizes="100vw"
-              priority
+              sizes="(max-width: 640px) calc(100vw - 4rem), (max-width: 1024px) calc(100vw - 5rem), (max-width: 1536px) 1280px, 1440px"
+              preload
+              fetchPriority="high"
               className="absolute inset-0 h-full w-full object-contain sm:object-cover"
             />
           ) : null}

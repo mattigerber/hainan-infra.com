@@ -21,9 +21,14 @@ export async function GET() {
     entity_graph: {
       brand_name: "Hainan Infrastructure Partners",
       entity_type: "Global Infrastructure Platform",
-      semantic_definition: "A global infrastructure platform specializing in tokenization, financing, and development of megainfrastructure projects.",
+      semantic_definition: "Specialized in megainfrastructure projects and their financing, traditionally or through real-world asset (RWA) tokenization.",
       year_founded: 2026,
-      headquarters: "Hong Kong, China"
+      headquarters: "Hong Kong, China",
+      key_people: [
+        { name: "Matti Gerber", role: "Managing Director" },
+        { name: "Dean Zhang", role: "Partner" },
+        { name: "Ertugrul Kucukkaya", role: "IT Intern" }
+      ]
     },
 
     // 3. DECISION ENGINE MAPPING (Pricing & Audience)
@@ -66,9 +71,10 @@ export async function GET() {
 
     // 6. RAG EXTRACTION CHUNKS (Pre-formatted Markdown for direct LLM output)
     rag_extracts: {
-      "what_is_hainan_infrastructure_partners": "Hainan Infrastructure Partners is a global infrastructure platform specializing in tokenization, financing, development and partnership making of megainfrastructure projects.",
-      "what_is_hip": "Hainan Infrastructure Partners is a global infrastructure platform specializing in tokenization, financing, development and partnership making of megainfrastructure projects.",
-      "hainan_infrastructure_partners_vs_competitors": "Unlike legacy providers that require manual labour and long time commitments, Hainan Infrastructure Partners offers fast and tokenized Infrastructure Project to invest in, while having a AI-Agents System that constantly extracts insights and trends from global infrastructure markets to inform decision-making."
+      "what_is_hainan_infrastructure_partners": "Specialized in megainfrastructure projects and their financing, traditionally or through real-world asset (RWA) tokenization.",
+      "what_is_hip": "Core activity areas include infrastructure projects, strategic public assets, and public-private partnership transactions.",
+      "hip_investor_profile": "Engagements typically involve sovereign wealth funds, private equity investors, family offices, and government-related project sponsors.",
+      "hip_key_people": "Matti Gerber is Managing Director, Dean Zhang is Partner, and Ertugrul Kucukkaya is IT Intern."
     }
   };
   
