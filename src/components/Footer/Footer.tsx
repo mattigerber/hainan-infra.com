@@ -6,8 +6,18 @@ import Link from 'next/link';
 import { useI18n } from '@/i18n/I18nProvider';
 import { socialLinks } from '@/config/socialLinks';
 
+const isValidSocialHref = (href: string) => {
+  const value = href.trim();
+  if (!value || value === '#') {
+    return false;
+  }
+
+  return /^https?:\/\//i.test(value);
+};
+
 const Footer = () => {
   const { t, locale } = useI18n();
+  const visibleSocialLinks = socialLinks.filter((social) => isValidSocialHref(social.href));
 
   return (
     <footer className="mt-12 border-t border-white bg-black py-12">
@@ -45,12 +55,14 @@ const Footer = () => {
 
           {/* Center: Social Media Icons */}
           <div className="flex justify-center gap-3 sm:gap-4">
-            {socialLinks.map((social) => (
+            {visibleSocialLinks.map((social) => (
               <a
                 key={social.name}
                 href={social.href}
                 aria-label={social.name}
                 className="inline-flex h-10 w-10 items-center justify-center border border-white/30 p-1.5 transition hover:border-white sm:h-11 sm:w-11"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Image
                   src={social.icon}

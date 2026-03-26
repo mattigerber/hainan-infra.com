@@ -35,10 +35,19 @@ const HeroVideo = ({ initialHeroMedia }: HeroVideoProps) => {
           aria-label={heroMedia.videoSrc ? t('hero.openVideo') : t('hero.videoUnavailable')}
         >
           {heroMedia.coverImageSrc ? (
-            <picture>
-              {heroMedia.mobileCoverImageSrc ? (
-                <source media="(max-width: 640px)" srcSet={heroMedia.mobileCoverImageSrc} />
-              ) : null}
+            heroMedia.mobileCoverImageSrc ? (
+              <picture>
+                <source media="(min-width: 641px)" srcSet={heroMedia.coverImageSrc} />
+                <img
+                  src={heroMedia.mobileCoverImageSrc}
+                  alt={t('hero.coverAlt')}
+                  fetchPriority="high"
+                  decoding="async"
+                  loading="eager"
+                  className="absolute inset-0 h-full w-full object-contain sm:object-cover"
+                />
+              </picture>
+            ) : (
               <img
                 src={heroMedia.coverImageSrc}
                 alt={t('hero.coverAlt')}
@@ -47,7 +56,7 @@ const HeroVideo = ({ initialHeroMedia }: HeroVideoProps) => {
                 loading="eager"
                 className="absolute inset-0 h-full w-full object-contain sm:object-cover"
               />
-            </picture>
+            )
           ) : null}
           <div className="absolute inset-0 bg-black/20 transition group-hover:bg-black/10" />
           <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 sm:bottom-10 sm:left-5 sm:right-5 sm:gap-4 md:bottom-10 md:left-6 md:right-6">
