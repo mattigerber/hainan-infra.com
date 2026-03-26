@@ -28,6 +28,7 @@ const ConnectWalletButton = () => {
   const popupRef = useRef<HTMLDivElement>(null);
   const connectorMenuRef = useRef<HTMLDivElement>(null);
   const [walletActionError, setWalletActionError] = useState<string | null>(null);
+  const [isWalletConnectTemporarilyUnavailable, setIsWalletConnectTemporarilyUnavailable] = useState(false);
   const [dismissedConnectError, setDismissedConnectError] = useState<string | null>(null);
   const {
     isDisclaimerOpen,
@@ -53,25 +54,37 @@ const ConnectWalletButton = () => {
   const isConnecting = status === 'pending';
   const isArabic = locale === 'ar';
   const isSmallViewport = typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches;
-  const shouldShowConnectorChoice = isHydrated && hasConnectorChoice;
   const walletConnectWarmupStartedRef = useRef(false);
+  const canUseWalletConnectNow = canUseWalletConnect && !isWalletConnectTemporarilyUnavailable;
+  const hasConnectorChoiceNow = canUseBrowserWallet && canUseWalletConnectNow;
+  const hasAnyAvailableConnectorNow = canUseBrowserWallet || canUseWalletConnectNow;
+  const shouldShowConnectorChoice = isHydrated && hasConnectorChoiceNow;
 
   const warmupWalletConnect = useCallback(() => {
     if (walletConnectWarmupStartedRef.current) {
       return;
     }
 
-    if (!walletConnectConnector || !isWalletConnectConfigured) {
+    if (!walletConnectConnector || !isWalletConnectConfigured || isWalletConnectTemporarilyUnavailable) {
       return;
     }
 
     walletConnectWarmupStartedRef.current = true;
 
     // Pre-initialize provider to avoid first-click QR modal lag.
-    void walletConnectConnector.getProvider?.().catch(() => {
+    void walletConnectConnector.getProvider?.().catch((providerError) => {
+      if (isWalletConnectOriginBlockedError(providerError)) {
+        setIsWalletConnectTemporarilyUnavailable(true);
+        setShowConnectorMenu(false);
+      }
+
       walletConnectWarmupStartedRef.current = false;
     });
-  }, [walletConnectConnector, isWalletConnectConfigured]);
+  }, [
+    isWalletConnectConfigured,
+    isWalletConnectTemporarilyUnavailable,
+    walletConnectConnector,
+  ]);
 
   const isUserRejectedError = (value: unknown) => {
     const message = parseErrorMessage(value, '').toLowerCase();
@@ -79,6 +92,14 @@ const ConnectWalletButton = () => {
       message.includes('user rejected') ||
       message.includes('rejected the request') ||
       message.includes('connection request reset')
+    );
+  };
+
+  const isWalletConnectOriginBlockedError = (value: unknown) => {
+    const message = parseErrorMessage(value, '').toLowerCase();
+    return (
+      message.includes('origin not allowed') ||
+      (message.includes('unauthorized') && message.includes('origin'))
     );
   };
 
@@ -234,35 +255,52 @@ const ConnectWalletButton = () => {
   };
 
   const connectWithWalletConnect = () => {
+    if (isWalletConnectTemporarilyUnavailable) {
+      return;
+    }
+
     runWalletConnect({
       walletConnectConnector,
       isWalletConnectConfigured,
       connect,
       walletConnectNotConfiguredMessage: t('wallet.error.walletConnectNotConfigured'),
       connectStartFailedMessage: t('wallet.error.connectStartFailed'),
-      onError: (message) => setWalletActionError(message),
+      onError: (message) => {
+        if (isWalletConnectOriginBlockedError(message)) {
+          setIsWalletConnectTemporarilyUnavailable(true);
+          setShowConnectorMenu(false);
+          return;
+        }
+
+        setWalletActionError(message);
+      },
       onSuccess: () => {
         setWalletActionError(null);
         setDismissedConnectError(null);
         setShowConnectorMenu(false);
         setShowPopup(false);
+        setIsWalletConnectTemporarilyUnavailable(false);
       },
     });
   };
 
   const startConnectFlow = () => {
-    if (!hasAnyAvailableConnector) {
+    if (!hasAnyAvailableConnectorNow) {
       setWalletActionError(t('wallet.error.noConnector'));
       return false;
     }
 
-    if (hasConnectorChoice && !isSmallViewport) {
+    if (hasConnectorChoiceNow && !isSmallViewport) {
       warmupWalletConnect();
       setShowConnectorMenu((current) => !current);
       return true;
     }
 
-    if (hasConnectorChoice && isSmallViewport && canUseWalletConnect) {
+    if (
+      hasConnectorChoiceNow &&
+      isSmallViewport &&
+      canUseWalletConnectNow
+    ) {
       connectWithWalletConnect();
       return true;
     }
@@ -270,6 +308,10 @@ const ConnectWalletButton = () => {
     if (canUseBrowserWallet) {
       connectWithBrowserWallet();
       return true;
+    }
+
+    if (!canUseWalletConnectNow) {
+      return false;
     }
 
     connectWithWalletConnect();
@@ -397,14 +439,16 @@ const ConnectWalletButton = () => {
               >
                 {t('wallet.browserWallet')}
               </button>
-              <button
-                type="button"
-                onClick={connectWithWalletConnect}
-                role="menuitem"
-                className="mt-1 w-full px-3 py-2 text-left text-sm text-white hover:bg-white/10 transition"
-              >
-                {t('wallet.walletConnect')}
-              </button>
+              {canUseWalletConnectNow ? (
+                <button
+                  type="button"
+                  onClick={connectWithWalletConnect}
+                  role="menuitem"
+                  className="mt-1 w-full px-3 py-2 text-left text-sm text-white hover:bg-white/10 transition"
+                >
+                  {t('wallet.walletConnect')}
+                </button>
+              ) : null}
             </div>
           ) : null}
         </div>
