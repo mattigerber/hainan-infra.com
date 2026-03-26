@@ -1,4 +1,5 @@
 {
   "coverImageSrc": "/hero/cover.webp",
+  "mobileCoverImageSrc": "/hero/cover-mobile.webp",
   "videoSrc": null
 }

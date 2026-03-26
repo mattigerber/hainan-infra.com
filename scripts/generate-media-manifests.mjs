@@ -47,11 +47,16 @@ const buildHeroManifest = async () => {
 
   const coverFile =
     imageFiles.find((name) => /^cover\./i.test(name)) ?? imageFiles[0] ?? null;
+  const mobileCoverFile =
+    imageFiles.find((name) => /^cover-mobile\./i.test(name)) ?? null;
   const videoFile =
     videoFiles.find((name) => /^video\./i.test(name)) ?? videoFiles[0] ?? null;
 
   const payload = {
     coverImageSrc: coverFile ? `/hero/${encodeURIComponent(coverFile)}` : null,
+    mobileCoverImageSrc: mobileCoverFile
+      ? `/hero/${encodeURIComponent(mobileCoverFile)}`
+      : null,
     videoSrc: videoFile ? `/hero/${encodeURIComponent(videoFile)}` : null,
   };
 

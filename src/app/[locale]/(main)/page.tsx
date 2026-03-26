@@ -16,6 +16,7 @@ type Props = {
 
 type HeroMediaPayload = {
   coverImageSrc: string | null;
+  mobileCoverImageSrc: string | null;
   videoSrc: string | null;
 };
 
@@ -58,6 +59,23 @@ const getDiscoveredHeroCoverImage = async (): Promise<string | null> => {
   }
 };
 
+const getDiscoveredHeroMobileCoverImage = async (): Promise<string | null> => {
+  try {
+    const heroDir = path.join(process.cwd(), "public", "hero");
+    const entries = await readdir(heroDir, { withFileTypes: true });
+    const imageFiles = entries
+      .filter((entry) => entry.isFile())
+      .map((entry) => entry.name)
+      .filter((name) => heroImageExtensions.has(path.extname(name).toLowerCase()))
+      .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }));
+
+    const mobileCoverFile = imageFiles.find((name) => /^cover-mobile\./i.test(name)) ?? null;
+    return mobileCoverFile ? `/hero/${encodeURIComponent(mobileCoverFile)}` : null;
+  } catch {
+    return null;
+  }
+};
+
 const isExistingPublicAsset = async (sourcePath: string | null): Promise<boolean> => {
   if (!sourcePath) {
     return false;
@@ -76,6 +94,7 @@ const isExistingPublicAsset = async (sourcePath: string | null): Promise<boolean
 
 const getInitialHeroMedia = async (): Promise<HeroMediaPayload> => {
   const discoveredCover = await getDiscoveredHeroCoverImage();
+  const discoveredMobileCover = await getDiscoveredHeroMobileCoverImage();
 
   try {
     const mediaPath = path.join(process.cwd(), "public", "hero", "media.json");
@@ -85,10 +104,18 @@ const getInitialHeroMedia = async (): Promise<HeroMediaPayload> => {
       typeof payload.coverImageSrc === "string" && payload.coverImageSrc.length > 0
         ? payload.coverImageSrc
         : null;
+    const jsonMobileCover =
+      typeof payload.mobileCoverImageSrc === "string" && payload.mobileCoverImageSrc.length > 0
+        ? payload.mobileCoverImageSrc
+        : null;
     const resolvedCover = (await isExistingPublicAsset(jsonCover)) ? jsonCover : discoveredCover;
+    const resolvedMobileCover = (await isExistingPublicAsset(jsonMobileCover))
+      ? jsonMobileCover
+      : discoveredMobileCover;
 
     return {
       coverImageSrc: resolvedCover,
+      mobileCoverImageSrc: resolvedMobileCover,
       videoSrc:
         typeof payload.videoSrc === "string" && payload.videoSrc.length > 0
           ? payload.videoSrc
@@ -97,6 +124,7 @@ const getInitialHeroMedia = async (): Promise<HeroMediaPayload> => {
   } catch {
     return {
       coverImageSrc: discoveredCover,
+      mobileCoverImageSrc: discoveredMobileCover,
       videoSrc: null,
     };
   }

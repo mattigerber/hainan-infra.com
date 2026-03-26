@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { useI18n } from '@/i18n/I18nProvider';
-import { useViewportSize } from '@/hooks/useViewportSize';
 
 type HeroMediaPayload = {
   coverImageSrc: string | null;
+  mobileCoverImageSrc: string | null;
   videoSrc: string | null;
 };
 
@@ -17,9 +16,7 @@ type HeroVideoProps = {
 const HeroVideo = ({ initialHeroMedia }: HeroVideoProps) => {
   const { t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
-  const { width } = useViewportSize();
   const heroMedia = initialHeroMedia;
-  const coverQuality = width > 0 && width < 640 ? 52 : 75;
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -57,16 +54,19 @@ const HeroVideo = ({ initialHeroMedia }: HeroVideoProps) => {
           aria-label={heroMedia.videoSrc ? t('hero.openVideo') : t('hero.videoUnavailable')}
         >
           {heroMedia.coverImageSrc ? (
-            <Image
-              src={heroMedia.coverImageSrc}
-              alt={t('hero.coverAlt')}
-              fill
-              sizes="(max-width: 640px) calc(100vw - 4rem), (max-width: 1024px) calc(100vw - 5rem), (max-width: 1536px) 1280px, 1440px"
-              quality={coverQuality}
-              preload
-              fetchPriority="high"
-              className="absolute inset-0 h-full w-full object-contain sm:object-cover"
-            />
+            <picture>
+              {heroMedia.mobileCoverImageSrc ? (
+                <source media="(max-width: 640px)" srcSet={heroMedia.mobileCoverImageSrc} />
+              ) : null}
+              <img
+                src={heroMedia.coverImageSrc}
+                alt={t('hero.coverAlt')}
+                fetchPriority="high"
+                decoding="async"
+                loading="eager"
+                className="absolute inset-0 h-full w-full object-contain sm:object-cover"
+              />
+            </picture>
           ) : null}
           <div className="absolute inset-0 bg-black/20 transition group-hover:bg-black/10" />
           <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 sm:bottom-10 sm:left-5 sm:right-5 sm:gap-4 md:bottom-10 md:left-6 md:right-6">
