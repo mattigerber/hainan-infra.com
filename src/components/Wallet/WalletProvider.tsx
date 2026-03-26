@@ -80,7 +80,7 @@ export default function WalletProvider({ children }: { children: ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <WagmiProvider config={config} reconnectOnMount={true}>
+      <WagmiProvider config={config} reconnectOnMount={false}>
         {children}
       </WagmiProvider>
     </QueryClientProvider>

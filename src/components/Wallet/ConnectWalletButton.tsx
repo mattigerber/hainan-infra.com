@@ -30,6 +30,7 @@ const ConnectWalletButton = () => {
   const [walletActionError, setWalletActionError] = useState<string | null>(null);
   const [isWalletConnectTemporarilyUnavailable, setIsWalletConnectTemporarilyUnavailable] = useState(false);
   const [dismissedConnectError, setDismissedConnectError] = useState<string | null>(null);
+  const walletConnectAttemptInFlightRef = useRef(false);
   const {
     isDisclaimerOpen,
     requestWithDisclaimer,
@@ -54,37 +55,10 @@ const ConnectWalletButton = () => {
   const isConnecting = status === 'pending';
   const isArabic = locale === 'ar';
   const isSmallViewport = typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches;
-  const walletConnectWarmupStartedRef = useRef(false);
   const canUseWalletConnectNow = canUseWalletConnect && !isWalletConnectTemporarilyUnavailable;
   const hasConnectorChoiceNow = canUseBrowserWallet && canUseWalletConnectNow;
   const hasAnyAvailableConnectorNow = canUseBrowserWallet || canUseWalletConnectNow;
   const shouldShowConnectorChoice = isHydrated && hasConnectorChoiceNow;
-
-  const warmupWalletConnect = useCallback(() => {
-    if (walletConnectWarmupStartedRef.current) {
-      return;
-    }
-
-    if (!walletConnectConnector || !isWalletConnectConfigured || isWalletConnectTemporarilyUnavailable) {
-      return;
-    }
-
-    walletConnectWarmupStartedRef.current = true;
-
-    // Pre-initialize provider to avoid first-click QR modal lag.
-    void walletConnectConnector.getProvider?.().catch((providerError) => {
-      if (isWalletConnectOriginBlockedError(providerError)) {
-        setIsWalletConnectTemporarilyUnavailable(true);
-        setShowConnectorMenu(false);
-      }
-
-      walletConnectWarmupStartedRef.current = false;
-    });
-  }, [
-    isWalletConnectConfigured,
-    isWalletConnectTemporarilyUnavailable,
-    walletConnectConnector,
-  ]);
 
   const isUserRejectedError = (value: unknown) => {
     const message = parseErrorMessage(value, '').toLowerCase();
@@ -115,6 +89,25 @@ const ConnectWalletButton = () => {
     }
     keysToRemove.forEach((key) => localStorage.removeItem(key));
   };
+
+  const forceStopWalletConnect = useCallback(async () => {
+    clearStaleWalletStorage();
+    disconnect();
+
+    if (!walletConnectConnector) {
+      return;
+    }
+
+    try {
+      const provider = await walletConnectConnector.getProvider?.();
+      if (provider && typeof provider === 'object' && 'disconnect' in provider) {
+        const disconnectProvider = (provider as { disconnect?: () => Promise<void> }).disconnect;
+        await disconnectProvider?.();
+      }
+    } catch {
+      // Ignore provider shutdown errors during fail-fast cleanup.
+    }
+  }, [disconnect, walletConnectConnector]);
 
   const connectErrorMessage = error && !isUserRejectedError(error)
     ? parseErrorMessage(error, t('wallet.error.connectionFailed'))
@@ -150,6 +143,15 @@ const ConnectWalletButton = () => {
   useEffect(() => {
     if (error) {
       if (isUserRejectedError(error)) {
+        walletConnectAttemptInFlightRef.current = false;
+        return;
+      }
+
+      if (isWalletConnectOriginBlockedError(error)) {
+        walletConnectAttemptInFlightRef.current = false;
+        setIsWalletConnectTemporarilyUnavailable(true);
+        setShowConnectorMenu(false);
+        void forceStopWalletConnect();
         return;
       }
 
@@ -164,7 +166,7 @@ const ConnectWalletButton = () => {
         disconnect();
       }
     }
-  }, [error, disconnect]);
+  }, [error, disconnect, forceStopWalletConnect]);
 
   // Close popup when clicking outside
   useEffect(() => {
@@ -206,18 +208,10 @@ const ConnectWalletButton = () => {
   }, [showPopup, showConnectorMenu]);
 
   useEffect(() => {
-    if (!isHydrated || typeof window === 'undefined') {
-      return;
+    if (status !== 'pending') {
+      walletConnectAttemptInFlightRef.current = false;
     }
-
-    const warmupTimer = window.setTimeout(() => {
-      warmupWalletConnect();
-    }, 900);
-
-    return () => {
-      window.clearTimeout(warmupTimer);
-    };
-  }, [isHydrated, warmupWalletConnect]);
+  }, [status]);
 
   const handleDisconnect = () => {
     try {
@@ -259,6 +253,12 @@ const ConnectWalletButton = () => {
       return;
     }
 
+    if (walletConnectAttemptInFlightRef.current || isConnecting) {
+      return;
+    }
+
+    walletConnectAttemptInFlightRef.current = true;
+
     runWalletConnect({
       walletConnectConnector,
       isWalletConnectConfigured,
@@ -266,15 +266,19 @@ const ConnectWalletButton = () => {
       walletConnectNotConfiguredMessage: t('wallet.error.walletConnectNotConfigured'),
       connectStartFailedMessage: t('wallet.error.connectStartFailed'),
       onError: (message) => {
+        walletConnectAttemptInFlightRef.current = false;
+
         if (isWalletConnectOriginBlockedError(message)) {
           setIsWalletConnectTemporarilyUnavailable(true);
           setShowConnectorMenu(false);
+          void forceStopWalletConnect();
           return;
         }
 
         setWalletActionError(message);
       },
       onSuccess: () => {
+        walletConnectAttemptInFlightRef.current = false;
         setWalletActionError(null);
         setDismissedConnectError(null);
         setShowConnectorMenu(false);
@@ -291,7 +295,6 @@ const ConnectWalletButton = () => {
     }
 
     if (hasConnectorChoiceNow && !isSmallViewport) {
-      warmupWalletConnect();
       setShowConnectorMenu((current) => !current);
       return true;
     }
@@ -411,8 +414,6 @@ const ConnectWalletButton = () => {
             type="button"
             className="inline-flex w-full min-h-[42px] items-center justify-center gap-2 border border-white bg-white px-3 py-2 font-playfair text-xs text-black transition hover:bg-white/90 sm:w-auto sm:px-4 sm:text-sm"
             onClick={handleConnect}
-            onMouseEnter={warmupWalletConnect}
-            onFocus={warmupWalletConnect}
             disabled={isConnecting}
             aria-haspopup={shouldShowConnectorChoice ? 'menu' : undefined}
             aria-expanded={shouldShowConnectorChoice ? showConnectorMenu : undefined}
