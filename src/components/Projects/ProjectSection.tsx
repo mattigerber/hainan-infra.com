@@ -455,7 +455,14 @@ export default function ProjectSection() {
     }
   }, [selectedProjectId, visibleProjects]);
 
-  // activeProjectId only returns a project if it's explicitly selected AND visible
+  // Keep one project selected whenever the filtered list has entries.
+  useEffect(() => {
+    if (!selectedProjectId && visibleProjects.length > 0) {
+      setSelectedProjectId(visibleProjects[0].id);
+    }
+  }, [selectedProjectId, visibleProjects]);
+
+  // activeProjectId returns a project only when the selected id is still visible.
   const activeProjectId = useMemo(() => {
     if (!selectedProjectId || visibleProjects.length === 0) return "";
 
@@ -466,7 +473,7 @@ export default function ProjectSection() {
     return isStillVisible ? selectedProjectId : "";
   }, [selectedProjectId, visibleProjects]);
 
-  // Only set selectedProject if activeProjectId is non-empty (i.e., user has made explicit selection)
+  // Resolve the selected project from the current visible list.
   const selectedProject = useMemo(
     () =>
       activeProjectId

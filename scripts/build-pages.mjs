@@ -1,4 +1,12 @@
-import { access, cp, mkdir, readdir, readFile, rename, writeFile } from "node:fs/promises";
+import {
+  access,
+  cp,
+  mkdir,
+  readdir,
+  readFile,
+  rename,
+  writeFile,
+} from "node:fs/promises";
 import path from "node:path";
 import { spawn } from "node:child_process";
 
@@ -179,14 +187,21 @@ const writeRootRedirectPages = async () => {
   }
 
   const prefixes = await getLegacyPrefixes();
-  const targets = [EXPORT_OUTPUT_DIR, ...prefixes.map((prefix) => path.join(EXPORT_OUTPUT_DIR, prefix))];
+  const targets = [
+    EXPORT_OUTPUT_DIR,
+    ...prefixes.map((prefix) => path.join(EXPORT_OUTPUT_DIR, prefix)),
+  ];
 
   for (const targetDir of targets) {
     if (!(await exists(targetDir))) {
       continue;
     }
 
-    await writeFile(path.join(targetDir, "index.html"), ROOT_REDIRECT_HTML, "utf8");
+    await writeFile(
+      path.join(targetDir, "index.html"),
+      ROOT_REDIRECT_HTML,
+      "utf8",
+    );
   }
 };
 
