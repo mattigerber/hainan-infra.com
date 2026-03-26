@@ -44,18 +44,23 @@ export default function TeamSection() {
     let cancelled = false;
 
     const loadTeamImageMap = async () => {
-      try {
-        const response = await fetch("/api/team-images", { cache: "no-store" });
-        if (!response.ok) {
-          return;
-        }
+      const fetchCandidates = ["/team/index.json", "/api/team-images"];
 
-        const payload = (await response.json()) as { images?: Record<string, string> };
-        if (!cancelled && payload.images && typeof payload.images === "object") {
-          setTeamImageMap(payload.images);
+      for (const candidate of fetchCandidates) {
+        try {
+          const response = await fetch(candidate, { cache: "no-store" });
+          if (!response.ok) {
+            continue;
+          }
+
+          const payload = (await response.json()) as { images?: Record<string, string> };
+          if (!cancelled && payload.images && typeof payload.images === "object") {
+            setTeamImageMap(payload.images);
+            return;
+          }
+        } catch {
+          // Try next source.
         }
-      } catch {
-        // Keep cards visible even if image discovery fails.
       }
     };
 
