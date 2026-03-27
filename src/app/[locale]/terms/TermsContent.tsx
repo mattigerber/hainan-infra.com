@@ -19,7 +19,7 @@ export default function TermsContent() {
 
       <p>
         These Terms of Use ("Terms") constitute a legally binding agreement between you ("User," "you," or "your") 
-        and Hainan Infrastructure Partners, a company incorporated in the Hainan Free Trade Port, China ("Company," 
+        and Hainan Infrastructure Partners, a company incorporated in Hong Kong ("Company," 
         "we," "us," or "our"). By accessing our website (the "Site") and connecting your digital wallet, you agree 
         to these Terms. If you do not agree, you must immediately cease using the Site.
       </p>
@@ -83,7 +83,7 @@ export default function TermsContent() {
         </p>
         <p>
           <strong>(d) Mainland China Compliance:</strong> You acknowledge the PRC regulations regarding virtual currency 
-          trading and comply with Hainan Free Trade Port regulations.
+          trading and comply with applicable Hong Kong regulations.
         </p>
         <p>
           <strong>(e) No Fiat-to-Crypto Exchange:</strong> The Interface does not facilitate the exchange of fiat for 
@@ -304,7 +304,7 @@ export default function TermsContent() {
       </p>
         <p>
           <strong>(a) Regulatory Disruption:</strong> You expressly acknowledge the volatility of the regulatory environment 
-          within the People's Republic of China and the Hainan Free Trade Port. In the event of sudden changes in law, 
+          within Hong Kong. In the event of sudden changes in law, 
           administrative orders, or judicial interpretations that render the Interface or the Protocol illegal or 
           non-compliant, the Company reserves the right to immediately and permanently discontinue the Interface without 
           prior notice or liability.
@@ -385,8 +385,8 @@ export default function TermsContent() {
 
       <h2>§ 19. GOVERNING LAW, ARBITRATION, AND CLASS ACTION WAIVER</h2>
       <p>
-        Terms are governed by PRC law. All disputes shall be finally resolved by binding arbitration at the Hainan 
-        International Arbitration Court (HIAC) in accordance with its rules in force at the time of applying for arbitration. 
+        Terms are governed by Hong Kong law. All disputes shall be finally resolved by binding arbitration at the Hong Kong 
+        International Arbitration Centre (HKIAC) in accordance with its rules in force at the time of applying for arbitration. 
         The arbitral tribunal shall consist of one (1) arbitrator. The language of the arbitration shall be English. Users 
         expressly waive rights to participate in class actions, jury trials, or representative proceedings. Notwithstanding 
         the foregoing, the Company retains the right to seek immediate injunctive relief in any court to prevent IP infringement.

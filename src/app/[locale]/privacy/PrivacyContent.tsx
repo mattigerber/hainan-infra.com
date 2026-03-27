@@ -76,7 +76,7 @@ export default function PrivacyContent() {
 
       <h2>§ 7. PRC PIPL AND CROSS-BORDER DATA TRANSFERS</h2>
       <p>
-        As a stateless application operating from the Hainan Free Trade Port, the Company does not collect, process, or 
+        As a stateless application operating from Hong Kong, the Company does not collect, process, or 
         export "Personal Information" or "Important Data" as defined by the PRC Personal Information Protection Law 
         (PIPL) and the Data Security Law (DSL). Any involuntary network-layer routing of IP addresses by third-party 
         infrastructure providers does not constitute a regulated cross-border data transfer by the Company. Users 
