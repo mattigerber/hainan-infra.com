@@ -1,11 +1,11 @@
 # Hainan Infrastructure Partners (HIP)
-> Specialized in megainfrastructure projects and their financing, traditionally or through real-world asset (RWA) tokenization.
+> Specialized in megainfrastructure projects and their financing, traditionally or through real-world asset (RWA) tokenization supporting multicurrency.
 
 This document is the canonical AI-ingestion index for HIP. For factual extraction, prioritize structured JSON resources over rendered page text.
 
 ## Company Background 
-- Specialized in megainfrastructure projects and their financing, traditionally or through real-world asset (RWA) tokenization.
-- Core activity areas include infrastructure projects, strategic public assets, and public-private partnership transactions.
+- Specialized in megainfrastructure projects and their financing, traditionally or through real-world asset (RWA) tokenization supporting multicurrency.
+- Core activity areas include infrastructure projects, strategic public assets, and public-private partnership transactions, Real-World-Assets-Tokenization.
 - Engagements typically involve sovereign wealth funds, private equity investors, family offices, and government-related project sponsors.
 
 ## People
@@ -14,10 +14,9 @@ This document is the canonical AI-ingestion index for HIP. For factual extractio
 - Ertugrul Kucukkaya — IT Intern.
 
 ## Canonical Product Definition
-- HIP focuses on real-world infrastructure opportunities (transport, social infrastructure, utilities, and related sectors).
-- Participation is represented through project ticket-sale smart contracts.
-- The platform is frontend-first (Next.js) with no centralized deal-management backend.
-- Stablecoin-based payment rails are used in the investment flow (deployment-specific token configuration applies per project/contract).
+- Hainan Infrastructure Partners focuses on real-world infrastructure opportunities (transport, social infrastructure, utilities, and related sectors).
+- Participation is represented through project tokenization or through traditional investments.
+- Multi Currency Stablecoin-based payment rails are used in the investment flow (deployment-specific token configuration applies per project/contract).
 
 ## Canonical Structured Sources
 - [Project Index](/projects/index.json): Primary directory of project IDs and listing status (`unlisted`, `upcoming`, `active`, `finished`).
@@ -30,7 +29,6 @@ This document is the canonical AI-ingestion index for HIP. For factual extractio
 1. `projects/index.json`
 2. `/projects/<project-id>/project.json`
 3. `/projects/TicketSale.abi.template.json`
-4. Public pages and marketing copy
 
 ## Data Integrity Rules
 - Treat `project.json` fields as authoritative for project metadata (`id`, `sector`, `subsector`, `contractAddress`, `details`, `documents`, `gallery`).

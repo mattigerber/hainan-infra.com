@@ -47,21 +47,21 @@ const PAGE_META: Record<PageRoute, Record<Locale, PageMeta>> = {
     en: {
       title: "Platform",
       description:
-        "Explore the Hainan Infrastructure Partners investment platform — fractional tickets for real-world infrastructure projects.",
+        "Explore Hainan Infrastructure Partners, focused on real-world asset tokenization for infrastructure projects.",
     },
     zh: {
       title: "平台",
-      description: "探索海南基础设施合伙人投资平台，购买真实世界基础设施项目的分散投资票据。",
+      description: "探索 Hainan Infrastructure Partners 平台，了解基础设施项目的真实世界资产代币化。",
     },
     ru: {
       title: "Платформа",
       description:
-        "Изучайте инвестиционную платформу Hainan Infrastructure Partners — дробные тикеты в реальные инфраструктурные проекты.",
+        "Изучите платформу Hainan Infrastructure Partners для токенизации реальных активов инфраструктурных проектов.",
     },
     ar: {
       title: "المنصة",
       description:
-        "استكشف منصة الاستثمار لشركاء البنية التحتية في هاينان — تذاكر جزئية لمشاريع البنية التحتية الواقعية.",
+        "استكشف منصة Hainan Infrastructure Partners لتوكنة الأصول الواقعية لمشاريع البنية التحتية.",
     },
   },
   leadership: {
@@ -110,21 +110,21 @@ const PAGE_META: Record<PageRoute, Record<Locale, PageMeta>> = {
     en: {
       title: "Contributions",
       description:
-        "Track and manage your infrastructure investment contributions across all active HIP projects.",
+        "Track and manage your infrastructure contributions across all active HIP projects.",
     },
     zh: {
       title: "贡献",
-      description: "跟踪和管理您在所有活跃 HIP 项目中的基础设施投资贡献。",
+      description: "跟踪并管理您在所有活跃 HIP 项目中的基础设施贡献。",
     },
     ru: {
       title: "Взносы",
       description:
-        "Отслеживайте и управляйте своими инвестиционными взносами в инфраструктуру по всем активным проектам HIP.",
+        "Отслеживайте и управляйте своими инфраструктурными вкладами во всех активных проектах HIP.",
     },
     ar: {
       title: "المساهمات",
       description:
-        "تتبّع وأدر مساهماتك الاستثمارية في البنية التحتية عبر جميع مشاريع HIP النشطة.",
+        "تتبّع وأدر مساهماتك في البنية التحتية عبر جميع مشاريع HIP النشطة.",
     },
   },
   insights: {
@@ -173,21 +173,21 @@ const PAGE_META: Record<PageRoute, Record<Locale, PageMeta>> = {
     en: {
       title: "Terms of Use",
       description:
-        "Review the Hainan Infrastructure Partners terms and conditions governing platform usage and investment participation.",
+        "Review the Hainan Infrastructure Partners terms and conditions governing platform usage and participation.",
     },
     zh: {
       title: "使用条款",
-      description: "查看海南基础设施合伙人关于平台使用和投资参与的条款与条件。",
+      description: "查看 Hainan Infrastructure Partners 的条款与条件，了解平台使用与参与规则。",
     },
     ru: {
       title: "Условия использования",
       description:
-        "Ознакомьтесь с условиями Hainan Infrastructure Partners, регулирующими использование платформы и участие в инвестициях.",
+        "Ознакомьтесь с условиями Hainan Infrastructure Partners, регулирующими использование платформы и порядок участия.",
     },
     ar: {
       title: "شروط الاستخدام",
       description:
-        "راجع شروط وأحكام شركاء البنية التحتية في هاينان التي تحكم استخدام المنصة والمشاركة في الاستثمار.",
+        "راجع شروط وأحكام Hainan Infrastructure Partners التي تنظّم استخدام المنصة وآليات المشاركة.",
     },
   },
   risks: {
@@ -287,10 +287,10 @@ export function buildPageMetadata(locale: Locale, route: PageRoute): Metadata {
 /** Build Next.js Metadata for the locale home page (/en, /zh, …). */
 export function buildHomeMetadata(locale: Locale): Metadata {
   const descriptions: Record<Locale, string> = {
-    en: "Hainan Infrastructure Partners — fractional investments in global megainfrastructure projects using USDC.",
-    zh: "海南基础设施合伙人 — 通过 USDC 对全球大型基础设施项目进行分散投资。",
-    ru: "Hainan Infrastructure Partners — дробные инвестиции в глобальные мегаинфраструктурные проекты через USDC.",
-    ar: "شركاء البنية التحتية في هاينان — استثمارات جزئية في مشاريع البنية التحتية الكبرى العالمية عبر USDC.",
+    en: "Hainan Infrastructure Partners — Real-World-Asset Tokenization and traditional investments in global megainfrastructure projects with multi-currency support.",
+    zh: "海南基础设施合伙人 — 专注于全球大型基础设施项目的真实世界资产代币化与传统投资，并支持多币种。",
+    ru: "Hainan Infrastructure Partners — токенизация реальных активов и традиционные инвестиции в глобальные мегапроекты инфраструктуры с поддержкой мультивалютности.",
+    ar: "Hainan Infrastructure Partners — توكنة الأصول الواقعية والاستثمارات التقليدية في مشاريع البنية التحتية العملاقة عالميًا مع دعم تعدد العملات.",
   };
 
   const canonicalUrl = `${SITE_URL}/${locale}`;
