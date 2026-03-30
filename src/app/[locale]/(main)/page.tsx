@@ -20,6 +20,8 @@ type HeroMediaPayload = {
   videoSrc: string | null;
 };
 
+export const revalidate = 3600;
+
 const heroImageExtensions = new Set([".webp", ".avif", ".jpg", ".jpeg", ".png", ".gif"]);
 const heroExtensionPriority = new Map([
   [".avif", 0],

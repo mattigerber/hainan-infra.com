@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
+import HomeWalletBackedSections from "@/components/Home/HomeWalletBackedSections";
 
-const HomeWalletBackedSections = dynamic(() => import("@/components/Home/HomeWalletBackedSections"));
 const TeamSection = dynamic(() => import("@/components/Team/TeamSection"));
 const OurInnovationsSection = dynamic(() => import("@/components/Team/OurInnovationsSection"));
 
@@ -45,9 +45,7 @@ function DeferredSection({
 export default function HomeDeferredSections() {
   return (
     <>
-      <DeferredSection>
-        <HomeWalletBackedSections />
-      </DeferredSection>
+      <HomeWalletBackedSections />
       <DeferredSection>
         <TeamSection />
       </DeferredSection>

@@ -88,6 +88,12 @@ const nextConfig: NextConfig = {
   assetPrefix: PAGES_BASE_PATH,
   images: {
     unoptimized: IS_GITHUB_PAGES,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "unavatar.io",
+      },
+    ],
   },
 
   turbopack: {

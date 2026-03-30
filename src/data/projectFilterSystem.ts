@@ -208,20 +208,23 @@ const getPathWithoutExtension = (sourcePath: string) => {
 };
 
 const resolveGalleryImageSource = async (sourcePath: string): Promise<string> => {
-  if (!hasProjectImageExtension(sourcePath)) {
-    return sourcePath;
-  }
-
   const basePath = getPathWithoutExtension(sourcePath);
+  const extensionCandidates = projectImageExtensions.map(
+    (extension) => `${basePath}${extension}`
+  );
   const candidates = Array.from(
-    new Set([...projectImageExtensions.map((extension) => `${basePath}${extension}`), sourcePath])
+    new Set(
+      hasProjectImageExtension(sourcePath)
+        ? [sourcePath, ...extensionCandidates]
+        : [...extensionCandidates, sourcePath]
+    )
   );
 
   for (const candidate of candidates) {
     try {
       const response = await fetch(candidate, {
         method: "HEAD",
-        cache: "no-store",
+        cache: "force-cache",
       });
 
       if (response.ok) {
@@ -354,7 +357,7 @@ export const loadProjectsFromFolders = async (): Promise<Record<CategoryId, List
     pipeline: [],
   };
 
-  const indexResponse = await fetch("/projects/index.json", { cache: "no-store" });
+  const indexResponse = await fetch("/projects/index.json", { cache: "force-cache" });
   if (!indexResponse.ok) {
     throw new Error("Could not read projects index.");
   }
@@ -381,9 +384,11 @@ export const loadProjectsFromFolders = async (): Promise<Record<CategoryId, List
 
   const visibleEntries = indexEntries.filter(isVisibleIndexEntry);
 
-  const loadedProjects = await Promise.all(
+  const loadedProjects = await Promise.allSettled(
     visibleEntries.map(async (entry) => {
-      const projectResponse = await fetch(`/projects/${entry.id}/project.json`, { cache: "no-store" });
+      const projectResponse = await fetch(`/projects/${entry.id}/project.json`, {
+        cache: "force-cache",
+      });
       if (!projectResponse.ok) {
         throw new Error(`Could not read project file for ${entry.id}.`);
       }
@@ -403,8 +408,15 @@ export const loadProjectsFromFolders = async (): Promise<Record<CategoryId, List
     })
   );
 
-  loadedProjects.forEach(({ category, project }) => {
-    projectsByCategory[category].push(project);
+  loadedProjects.forEach((result) => {
+    if (result.status === "fulfilled") {
+      const { category, project } = result.value;
+      projectsByCategory[category].push(project);
+      return;
+    }
+
+    // Keep the section visible even if one project payload is malformed.
+    console.warn("Skipping invalid project entry:", result.reason);
   });
 
   return projectsByCategory;

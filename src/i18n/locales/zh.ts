@@ -54,7 +54,7 @@ export const zhMessages: Messages = {
   "wallet.section.label": "总览",
   "wallet.section.title": "钱包",
   "wallet.holdings.connectPrompt": "连接钱包以显示持仓。",
-  "wallet.holdings.investedProjects": "已投资项目",
+  "wallet.holdings.investedProjects": "已参与项目",
   "wallet.holdings.noTickets": "尚未购入任何项目票据。",
   "wallet.holdings.invested": "已投资",
   "wallet.holdings.owned": "持有",

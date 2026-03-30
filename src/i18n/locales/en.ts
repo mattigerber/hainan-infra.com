@@ -53,7 +53,7 @@ export const enMessages = {
   "wallet.section.label": "Overview",
   "wallet.section.title": "Wallet",
   "wallet.holdings.connectPrompt": "Connect wallet to display holdings.",
-  "wallet.holdings.investedProjects": "Invested Projects",
+  "wallet.holdings.investedProjects": "Contributed Projects",
   "wallet.holdings.noTickets": "No project tickets acquired yet.",
   "wallet.holdings.invested": "Invested",
   "wallet.holdings.owned": "Owned",

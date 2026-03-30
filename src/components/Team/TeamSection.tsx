@@ -35,20 +35,40 @@ const TEAM_MEMBERS: TeamMember[] = [
 
 const LINKEDIN_ICON_PATH = "/socials/LINKEDIN.svg";
 
+const resolveLinkedInAvatarUrl = (linkedinUrl?: string) => {
+  if (!linkedinUrl) {
+    return null;
+  }
+
+  try {
+    const { pathname } = new URL(linkedinUrl);
+    const segments = pathname.split("/").filter(Boolean);
+    const profileSlug = segments[0] === "in" ? segments[1] : segments[0];
+    if (!profileSlug) {
+      return null;
+    }
+
+    return `https://unavatar.io/linkedin/${encodeURIComponent(profileSlug)}`;
+  } catch {
+    return null;
+  }
+};
+
 export default function TeamSection() {
   const { t, locale } = useI18n();
   const headingAlignmentClass = locale === "ar" ? "text-right" : "text-left";
   const [teamImageMap, setTeamImageMap] = useState<Record<string, string>>({});
+  const [failedPrimaryImageIds, setFailedPrimaryImageIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     let cancelled = false;
 
     const loadTeamImageMap = async () => {
-      const fetchCandidates = ["/team/index.json", "/api/team-images"];
+      const fetchCandidates = ["/api/team-images", "/team/index.json"];
 
       for (const candidate of fetchCandidates) {
         try {
-          const response = await fetch(candidate, { cache: "no-store" });
+          const response = await fetch(candidate, { cache: "force-cache" });
           if (!response.ok) {
             continue;
           }
@@ -72,7 +92,17 @@ export default function TeamSection() {
   }, []);
 
   const membersWithResolvedImage = useMemo(
-    () => TEAM_MEMBERS.map((member) => ({ ...member, imagePath: teamImageMap[member.id] ?? null })),
+    () =>
+      TEAM_MEMBERS.map((member) => {
+        const primaryImagePath = resolveLinkedInAvatarUrl(member.linkedinUrl);
+        const fallbackImagePath = teamImageMap[member.id] ?? null;
+
+        return {
+          ...member,
+          primaryImagePath,
+          fallbackImagePath,
+        };
+      }),
     [teamImageMap]
   );
 
@@ -90,18 +120,37 @@ export default function TeamSection() {
 
         <div className="grid items-stretch gap-5 md:grid-cols-3 md:gap-6">
           {membersWithResolvedImage.map((member) => (
+            (() => {
+              const shouldUseFallback = failedPrimaryImageIds.has(member.id);
+              const imagePath = shouldUseFallback
+                ? member.fallbackImagePath
+                : (member.primaryImagePath ?? member.fallbackImagePath);
+
+              return (
             <article
               key={member.id}
               className="group flex h-full flex-col border border-white/15 bg-white/[0.03] p-4 sm:p-5"
             >
               <div className="relative h-[20rem] w-full overflow-hidden bg-black/40 sm:h-[22rem] md:h-[24rem] lg:h-[26rem]">
-                {member.imagePath ? (
+                {imagePath ? (
                   <Image
-                    src={member.imagePath}
+                    src={imagePath}
                     alt={member.name}
                     fill
-                    className="h-full w-full object-contain object-center"
                     sizes="(max-width: 768px) 92vw, (max-width: 1200px) 31vw, 29vw"
+                    referrerPolicy="no-referrer"
+                    onError={() => {
+                      if (!member.primaryImagePath || failedPrimaryImageIds.has(member.id)) {
+                        return;
+                      }
+
+                      setFailedPrimaryImageIds((prev) => {
+                        const next = new Set(prev);
+                        next.add(member.id);
+                        return next;
+                      });
+                    }}
+                    className="h-full w-full object-contain object-center"
                   />
                 ) : (
                   <div className="h-full w-full bg-black/30" aria-hidden="true" />
@@ -148,6 +197,8 @@ export default function TeamSection() {
                 )}
               </div>
             </article>
+              );
+            })()
           ))}
         </div>
       </div>

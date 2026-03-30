@@ -54,7 +54,7 @@ export const ruMessages: Messages = {
   "wallet.section.label": "Обзор",
   "wallet.section.title": "Кошелек",
   "wallet.holdings.connectPrompt": "Подключите кошелек, чтобы увидеть активы.",
-  "wallet.holdings.investedProjects": "Инвестированные проекты",
+  "wallet.holdings.investedProjects": "Проекты с вкладом",
   "wallet.holdings.noTickets": "Билеты проектов пока не приобретены.",
   "wallet.holdings.invested": "Инвестировано",
   "wallet.holdings.owned": "Во владении",

@@ -54,7 +54,7 @@ export const arMessages: Messages = {
   "wallet.section.label": "نظرة عامة",
   "wallet.section.title": "المحفظة",
   "wallet.holdings.connectPrompt": "اربط المحفظة لعرض المقتنيات.",
-  "wallet.holdings.investedProjects": "المشاريع المستثمَر فيها",
+  "wallet.holdings.investedProjects": "المشاريع المساهم فيها",
   "wallet.holdings.noTickets": "لم يتم شراء أي تذاكر مشاريع بعد.",
   "wallet.holdings.invested": "المستثمر",
   "wallet.holdings.owned": "المملوك",
