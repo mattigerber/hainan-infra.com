@@ -36,6 +36,8 @@ export const PAGE_ROUTES = [
 
 export type PageRoute = (typeof PAGE_ROUTES)[number];
 
+const DEFAULT_LOCALE: Locale = "en";
+
 // ---------------------------------------------------------------------------
 // Per-page, per-locale metadata
 // ---------------------------------------------------------------------------
@@ -239,12 +241,20 @@ const PAGE_META: Record<PageRoute, Record<Locale, PageMeta>> = {
 // ---------------------------------------------------------------------------
 
 /** Builds the `alternates.languages` map required by Next.js for hreflang tags. */
+export function buildLocaleUrl(locale: Locale, path?: string): string {
+  if (locale === DEFAULT_LOCALE) {
+    return path ? `${SITE_URL}/${path}` : `${SITE_URL}`;
+  }
+
+  return path ? `${SITE_URL}/${locale}/${path}` : `${SITE_URL}/${locale}`;
+}
+
 export function buildAlternateLanguages(path?: string): Record<string, string> {
   const langs: Record<string, string> = {};
   for (const locale of supportedLocales) {
-    langs[locale] = path ? `${SITE_URL}/${locale}/${path}` : `${SITE_URL}/${locale}`;
+    langs[locale] = buildLocaleUrl(locale, path);
   }
-  langs["x-default"] = path ? `${SITE_URL}/en/${path}` : `${SITE_URL}/en`;
+  langs["x-default"] = buildLocaleUrl(DEFAULT_LOCALE, path);
   return langs;
 }
 
@@ -255,7 +265,7 @@ export function buildAlternateLanguages(path?: string): Record<string, string> {
 /** Build Next.js Metadata for a named inner page (platform, leadership, …). */
 export function buildPageMetadata(locale: Locale, route: PageRoute): Metadata {
   const meta = PAGE_META[route][locale] ?? PAGE_META[route].en;
-  const canonicalUrl = `${SITE_URL}/${locale}/${route}`;
+  const canonicalUrl = buildLocaleUrl(locale, route);
 
   return {
     title: meta.title,
@@ -284,7 +294,7 @@ export function buildPageMetadata(locale: Locale, route: PageRoute): Metadata {
   };
 }
 
-/** Build Next.js Metadata for the locale home page (/en, /zh, …). */
+/** Build Next.js Metadata for the locale home page (/, /zh, /ru, /ar). */
 export function buildHomeMetadata(locale: Locale): Metadata {
   const descriptions: Record<Locale, string> = {
     en: "Hainan Infrastructure Partners — Real-World-Asset Tokenization and traditional investments in global megainfrastructure projects with multi-currency support.",
@@ -293,7 +303,7 @@ export function buildHomeMetadata(locale: Locale): Metadata {
     ar: "Hainan Infrastructure Partners — توكنة الأصول الواقعية والاستثمارات التقليدية في مشاريع البنية التحتية العملاقة عالميًا مع دعم تعدد العملات.",
   };
 
-  const canonicalUrl = `${SITE_URL}/${locale}`;
+  const canonicalUrl = buildLocaleUrl(locale);
 
   return {
     title: "Hainan Infrastructure Partners",

@@ -1,20 +1,17 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 import { isSupportedLocale, defaultLocale } from "@/i18n/messages";
-import type { Locale } from "@/i18n/types";
 
 /**
  * Proxy for locale negotiation and canonical URL enforcement.
  *
  * Rules (in order of precedence):
- * 1. If the URL already starts with a supported locale segment -> pass through.
- * 2. If the URL is "/" -> negotiate locale from Accept-Language header and
- *    internally rewrite to /{detectedLocale}.
- *    This serves locale content while keeping the browser URL as "/".
- * 3. All other non-locale paths are left untouched (API routes, static assets).
+ * 1. If URL starts with default locale segment (/en), redirect to unprefixed path.
+ * 2. If URL starts with a non-default supported locale segment, pass through.
+ * 3. All other user-facing paths are internally rewritten to /{defaultLocale}/*.
  *
  * next.config.ts permanent (308) redirects handle capitalised paths
- * (e.g. /Platform -> /en/platform) and are applied before this proxy.
+ * (e.g. /Platform -> /platform) and are applied before this proxy.
  */
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -31,48 +28,21 @@ export function proxy(request: NextRequest) {
   // Check whether the first URL segment is already a locale.
   const firstSegment = pathname.split("/")[1] ?? "";
   if (isSupportedLocale(firstSegment)) {
+    if (firstSegment === defaultLocale) {
+      const stripped = pathname.replace(new RegExp(`^/${defaultLocale}(?=/|$)`), "") || "/";
+      const redirectUrl = request.nextUrl.clone();
+      redirectUrl.pathname = stripped;
+      return NextResponse.redirect(redirectUrl, 308);
+    }
+
     return NextResponse.next();
   }
 
-  // Only negotiate locale for the bare root "/" path.
-  // Sub-paths without a locale (e.g. "/platform") are handled by
-  // the permanent redirects in next.config.ts instead.
-  if (pathname !== "/") {
-    return NextResponse.next();
-  }
-
-  // Accept-Language negotiation for "/".
-  const acceptLanguage = request.headers.get("accept-language") ?? "";
-  const detectedLocale = negotiateLocale(acceptLanguage);
-
+  // Rewrite unprefixed user-facing paths to default locale routes.
+  // This preserves clean URLs while serving /en-backed app routes.
   const url = request.nextUrl.clone();
-  url.pathname = `/${detectedLocale}`;
+  url.pathname = `/${defaultLocale}${pathname === "/" ? "" : pathname}`;
   return NextResponse.rewrite(url);
-}
-
-/**
- * Parse the Accept-Language header and return the best supported locale.
- * Falls back to defaultLocale ("en") when no match is found.
- */
-function negotiateLocale(acceptLanguage: string): Locale {
-  if (!acceptLanguage) return defaultLocale;
-
-  const tags = acceptLanguage
-    .split(",")
-    .map((entry) => {
-      const [tag, q] = entry.trim().split(";q=");
-      return { lang: (tag ?? "").trim().toLowerCase(), q: q ? parseFloat(q) : 1.0 };
-    })
-    .sort((a, b) => b.q - a.q);
-
-  for (const { lang } of tags) {
-    if (isSupportedLocale(lang)) return lang as Locale;
-
-    const prefix = lang.split("-")[0] ?? "";
-    if (prefix && isSupportedLocale(prefix)) return prefix as Locale;
-  }
-
-  return defaultLocale;
 }
 
 export const config = {

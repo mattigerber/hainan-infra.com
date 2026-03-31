@@ -1,10 +1,15 @@
-import { redirect } from "next/navigation";
+import LocaleHomePage, { revalidate } from "@/app/[locale]/(main)/page";
+import { buildHomeMetadata } from "@/lib/seo";
+
+export { revalidate };
 
 /**
- * Root entry point. The canonical home is always at /en (or the detected locale).
- * next.config.ts already sends a 307 for browsers, but this component handles
- * edge cases (e.g. direct server renders that bypass config redirects).
+ * Root entry point for default locale (English), served at "/".
+ * In normal runtime, proxy.ts rewrites "/" to /en internally while preserving
+ * the clean URL. This file is a fallback for environments without that rewrite.
  */
+export const generateMetadata = () => buildHomeMetadata("en");
+
 export default function RootPage() {
-  redirect("/en");
+  return <LocaleHomePage />;
 }

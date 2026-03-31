@@ -26,6 +26,7 @@ const PAGES_BASE_PATH =
     : "";
 
 const SUPPORTED_LOCALES = ["en", "zh", "ru", "ar"] as const;
+const DEFAULT_LOCALE = "en" as const;
 
 // Named page routes (lowercase — canonical form)
 const PAGE_ROUTES = [
@@ -44,7 +45,7 @@ const PAGE_ROUTES = [
  * Build permanent (308) redirects for every capitalised variant of each route.
  *
  * Covers two patterns:
- *   /Platform            → /en/platform   (root capitalised, default locale)
+ *   /Platform            → /platform   (root capitalised, default locale)
  *   /:locale/Platform    → /:locale/platform  (locale + capitalised)
  *
  * This ensures Google never indexes a capitalised duplicate URL, and any
@@ -60,10 +61,10 @@ function buildCaseRedirects() {
   for (const route of PAGE_ROUTES) {
     const capitalized = route.charAt(0).toUpperCase() + route.slice(1);
 
-    // /Platform → /en/platform
+    // /Platform → /platform
     redirects.push({
       source: `/${capitalized}`,
-      destination: `/en/${route}`,
+      destination: `/${route}`,
       permanent: true,
     });
 
@@ -71,7 +72,7 @@ function buildCaseRedirects() {
     for (const locale of SUPPORTED_LOCALES) {
       redirects.push({
         source: `/${locale}/${capitalized}`,
-        destination: `/${locale}/${route}`,
+        destination: locale === DEFAULT_LOCALE ? `/${route}` : `/${locale}/${route}`,
         permanent: true,
       });
     }
@@ -114,9 +115,6 @@ const nextConfig: NextConfig = {
     : {
         async redirects() {
           return [
-            // Canonical home: bare "/" → "/en" (default locale)
-            { source: "/", destination: "/en", permanent: false },
-
             // Capitalised-path redirects for all routes × locales
             ...buildCaseRedirects(),
           ];
