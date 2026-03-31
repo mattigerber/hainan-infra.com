@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { useI18n } from "@/i18n/I18nProvider";
+import { buildLocalePath } from "@/i18n/routing";
 import {
   CONSENT_ACCEPTED_VALUES,
   COOKIE_CONSENT_COOKIE_NAME,
@@ -88,11 +89,11 @@ export default function CookieConsentBanner({ initialHasConsent = false }: Cooki
           <p className="text-sm leading-6 text-white/80">{t("cookies.banner.thirdParty")}</p>
           <p className="text-sm text-white/90">
             {t("cookies.banner.policyLinks")} {" "}
-            <Link href={`/${locale}/privacy`} className="underline underline-offset-2 hover:text-white">
+            <Link href={buildLocalePath(locale, "privacy")} className="underline underline-offset-2 hover:text-white">
               {t("nav.privacy")}
             </Link>
             {" · "}
-            <Link href={`/${locale}/terms`} className="underline underline-offset-2 hover:text-white">
+            <Link href={buildLocalePath(locale, "terms")} className="underline underline-offset-2 hover:text-white">
               {t("nav.terms")}
             </Link>
           </p>

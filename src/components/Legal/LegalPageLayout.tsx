@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { buildLocalePath } from "@/i18n/routing";
+import { normalizeLocale } from "@/i18n/routing";
 
 type LegalPageLayoutProps = {
   locale: string;
@@ -13,12 +15,14 @@ type LegalPageLayoutProps = {
  * at the top-left, matching the site's standard content padding.
  */
 export default function LegalPageLayout({ locale, backLabel, children }: LegalPageLayoutProps) {
+  const resolvedLocale = normalizeLocale(locale) ?? "en";
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Back navigation bar */}
       <div className="mx-auto w-full max-w-7xl px-8 pt-8 sm:px-6 md:px-10 2xl:max-w-[90rem]">
         <Link
-          href={`/${locale}`}
+          href={buildLocalePath(resolvedLocale)}
           className="inline-flex items-center gap-1 text-sm text-white/50 transition-colors duration-150 hover:text-white"
         >
           {backLabel}

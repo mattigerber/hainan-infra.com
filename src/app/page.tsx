@@ -1,4 +1,5 @@
 import LocaleHomePage from "@/app/[locale]/(main)/page";
+import { I18nProvider } from "@/i18n/I18nProvider";
 import { buildHomeMetadata } from "@/lib/seo";
 
 export const revalidate = 3600;
@@ -11,5 +12,9 @@ export const revalidate = 3600;
 export const generateMetadata = () => buildHomeMetadata("en");
 
 export default function RootPage() {
-  return <LocaleHomePage />;
+  return (
+    <I18nProvider initialLocale="en">
+      <LocaleHomePage />
+    </I18nProvider>
+  );
 }

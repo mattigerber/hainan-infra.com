@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useI18n } from '@/i18n/I18nProvider';
+import { buildLocalePath } from '@/i18n/routing';
 import { socialLinks } from '@/config/socialLinks';
 
 const isValidSocialHref = (href: string) => {
@@ -27,25 +28,25 @@ const Footer = () => {
           <div className="flex justify-center md:justify-start">
             <div className="flex flex-col items-center gap-2 md:items-start">
               <Link
-                href={`/${locale}/privacy`}
+                href={buildLocalePath(locale, 'privacy')}
                 className="font-playfair text-sm text-white transition hover:text-white/70"
               >
                 {t('nav.privacy')}
               </Link>
               <Link
-                href={`/${locale}/terms`}
+                href={buildLocalePath(locale, 'terms')}
                 className="font-playfair text-sm text-white transition hover:text-white/70"
               >
                 {t('nav.terms')}
               </Link>
               <Link
-                href={`/${locale}/risks`}
+                href={buildLocalePath(locale, 'risks')}
                 className="font-playfair text-sm text-white transition hover:text-white/70"
               >
                 {t('nav.risks')}
               </Link>
               <Link
-                href={`/${locale}/downloads`}
+                href={buildLocalePath(locale, 'downloads')}
                 className="font-playfair text-sm text-white transition hover:text-white/70"
               >
                 {t('nav.downloads')}

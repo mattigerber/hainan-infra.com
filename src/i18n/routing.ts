@@ -36,3 +36,13 @@ export const replacePathLocale = (pathname: string, nextLocale: Locale) => {
 
   return segments.length > 0 ? `/${segments.join("/")}` : "/";
 };
+
+export const buildLocalePath = (locale: Locale, path = "") => {
+  const normalized = path.replace(/^\/+/, "");
+
+  if (locale === defaultLocale) {
+    return normalized ? `/${normalized}` : "/";
+  }
+
+  return normalized ? `/${locale}/${normalized}` : `/${locale}`;
+};
