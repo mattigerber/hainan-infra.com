@@ -1,7 +1,7 @@
-import LocaleHomePage, { revalidate } from "@/app/[locale]/(main)/page";
+import LocaleHomePage from "@/app/[locale]/(main)/page";
 import { buildHomeMetadata } from "@/lib/seo";
 
-export { revalidate };
+export const revalidate = 3600;
 
 /**
  * Root entry point for default locale (English), served at "/".
