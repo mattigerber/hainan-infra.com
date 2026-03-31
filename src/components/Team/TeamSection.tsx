@@ -59,6 +59,7 @@ export default function TeamSection() {
   const headingAlignmentClass = locale === "ar" ? "text-right" : "text-left";
   const [teamImageMap, setTeamImageMap] = useState<Record<string, string>>({});
   const [failedPrimaryImageIds, setFailedPrimaryImageIds] = useState<Set<string>>(new Set());
+  const [loadedImageKeys, setLoadedImageKeys] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     let cancelled = false;
@@ -125,6 +126,8 @@ export default function TeamSection() {
               const imagePath = shouldUseFallback
                 ? member.fallbackImagePath
                 : (member.primaryImagePath ?? member.fallbackImagePath);
+              const imageKey = imagePath ? `${member.id}:${imagePath}` : null;
+              const isImageLoaded = imageKey ? loadedImageKeys.has(imageKey) : false;
 
               return (
             <article
@@ -133,27 +136,57 @@ export default function TeamSection() {
             >
               <div className="relative h-[20rem] w-full overflow-hidden bg-black/40 sm:h-[22rem] md:h-[24rem] lg:h-[26rem]">
                 {imagePath ? (
-                  <Image
-                    src={imagePath}
-                    alt={member.name}
-                    fill
-                    sizes="(max-width: 768px) 92vw, (max-width: 1200px) 31vw, 29vw"
-                    referrerPolicy="no-referrer"
-                    onError={() => {
-                      if (!member.primaryImagePath || failedPrimaryImageIds.has(member.id)) {
-                        return;
-                      }
+                  <>
+                    <Image
+                      src={imagePath}
+                      alt={member.name}
+                      fill
+                      sizes="(max-width: 768px) 92vw, (max-width: 1200px) 31vw, 29vw"
+                      referrerPolicy="no-referrer"
+                      onLoadingComplete={() => {
+                        if (!imageKey) {
+                          return;
+                        }
 
-                      setFailedPrimaryImageIds((prev) => {
-                        const next = new Set(prev);
-                        next.add(member.id);
-                        return next;
-                      });
-                    }}
-                    className="h-full w-full object-contain object-center"
-                  />
+                        setLoadedImageKeys((prev) => {
+                          if (prev.has(imageKey)) {
+                            return prev;
+                          }
+
+                          const next = new Set(prev);
+                          next.add(imageKey);
+                          return next;
+                        });
+                      }}
+                      onError={() => {
+                        if (!member.primaryImagePath || failedPrimaryImageIds.has(member.id)) {
+                          return;
+                        }
+
+                        setFailedPrimaryImageIds((prev) => {
+                          const next = new Set(prev);
+                          next.add(member.id);
+                          return next;
+                        });
+                      }}
+                      className={`h-full w-full object-contain object-center transition-opacity duration-200 ${
+                        isImageLoaded ? "opacity-100" : "opacity-0"
+                      }`}
+                    />
+                    {!isImageLoaded && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                        <span className="text-xs uppercase tracking-[0.16em] text-white/70">
+                          Loading image...
+                        </span>
+                      </div>
+                    )}
+                  </>
                 ) : (
-                  <div className="h-full w-full bg-black/30" aria-hidden="true" />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                    <span className="text-xs uppercase tracking-[0.16em] text-white/70">
+                      Loading image...
+                    </span>
+                  </div>
                 )}
               </div>
 
