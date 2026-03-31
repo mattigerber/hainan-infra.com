@@ -17,6 +17,13 @@ import type { Locale } from "@/i18n/types";
 
 /** Canonical base URL — set NEXT_PUBLIC_SITE_URL in environment. */
 export const SITE_URL = publicEnv.siteUrl;
+const TEAM_SOCIAL_IMAGES = ["/team/matti.jpg", "/team/dean.jpg", "/team/ertugrul.jpg"] as const;
+
+const buildSocialImageMetadata = () =>
+  TEAM_SOCIAL_IMAGES.map((url) => ({
+    url,
+    alt: "Hainan Infrastructure Partners Team",
+  }));
 
 // ---------------------------------------------------------------------------
 // Route registry
@@ -280,6 +287,7 @@ export function buildPageMetadata(locale: Locale, route: PageRoute): Metadata {
       url: canonicalUrl,
       siteName: "Hainan Infrastructure Partners",
       type: "website",
+      images: buildSocialImageMetadata(),
     },
     robots: {
       index: true,
@@ -318,6 +326,7 @@ export function buildHomeMetadata(locale: Locale): Metadata {
       url: canonicalUrl,
       siteName: "Hainan Infrastructure Partners",
       type: "website",
+      images: buildSocialImageMetadata(),
     },
     robots: {
       index: true,

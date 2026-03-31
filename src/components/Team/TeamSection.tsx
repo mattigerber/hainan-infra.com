@@ -35,30 +35,10 @@ const TEAM_MEMBERS: TeamMember[] = [
 
 const LINKEDIN_ICON_PATH = "/socials/LINKEDIN.svg";
 
-const resolveLinkedInAvatarUrl = (linkedinUrl?: string) => {
-  if (!linkedinUrl) {
-    return null;
-  }
-
-  try {
-    const { pathname } = new URL(linkedinUrl);
-    const segments = pathname.split("/").filter(Boolean);
-    const profileSlug = segments[0] === "in" ? segments[1] : segments[0];
-    if (!profileSlug) {
-      return null;
-    }
-
-    return `https://unavatar.io/linkedin/${encodeURIComponent(profileSlug)}`;
-  } catch {
-    return null;
-  }
-};
-
 export default function TeamSection() {
   const { t, locale } = useI18n();
   const headingAlignmentClass = locale === "ar" ? "text-right" : "text-left";
   const [teamImageMap, setTeamImageMap] = useState<Record<string, string>>({});
-  const [failedPrimaryImageIds, setFailedPrimaryImageIds] = useState<Set<string>>(new Set());
   const [loadedImageKeys, setLoadedImageKeys] = useState<Set<string>>(new Set());
 
   useEffect(() => {
@@ -95,13 +75,11 @@ export default function TeamSection() {
   const membersWithResolvedImage = useMemo(
     () =>
       TEAM_MEMBERS.map((member) => {
-        const primaryImagePath = resolveLinkedInAvatarUrl(member.linkedinUrl);
-        const fallbackImagePath = teamImageMap[member.id] ?? null;
+        const fallbackImagePath = teamImageMap[member.id] ?? `/team/${member.id}.jpg`;
 
         return {
           ...member,
-          primaryImagePath,
-          fallbackImagePath,
+          imagePath: fallbackImagePath,
         };
       }),
     [teamImageMap]
@@ -122,10 +100,7 @@ export default function TeamSection() {
         <div className="grid items-stretch gap-5 md:grid-cols-3 md:gap-6">
           {membersWithResolvedImage.map((member) => (
             (() => {
-              const shouldUseFallback = failedPrimaryImageIds.has(member.id);
-              const imagePath = shouldUseFallback
-                ? member.fallbackImagePath
-                : (member.primaryImagePath ?? member.fallbackImagePath);
+              const { imagePath } = member;
               const imageKey = imagePath ? `${member.id}:${imagePath}` : null;
               const isImageLoaded = imageKey ? loadedImageKeys.has(imageKey) : false;
 
@@ -155,17 +130,6 @@ export default function TeamSection() {
 
                           const next = new Set(prev);
                           next.add(imageKey);
-                          return next;
-                        });
-                      }}
-                      onError={() => {
-                        if (!member.primaryImagePath || failedPrimaryImageIds.has(member.id)) {
-                          return;
-                        }
-
-                        setFailedPrimaryImageIds((prev) => {
-                          const next = new Set(prev);
-                          next.add(member.id);
                           return next;
                         });
                       }}
