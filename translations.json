@@ -1,0 +1,416 @@
+{
+  "key_0": {
+    "en": "Hainan Infrastructure Partners",
+    "ar": "Hainan Infrastructure Partners",
+    "ru": "Hainan Infrastructure Partners",
+    "zh": "Hainan Infrastructure Partners"
+  },
+  "key_1": {
+    "en": "We honor the great builders of Infrastructure",
+    "ar": "نحن نكرّم البناة العظماء للبنية التحتية",
+    "ru": "Мы чтим великих строителей инфраструктуры",
+    "zh": "我们向伟大的基础设施建设者致敬"
+  },
+  "key_2": {
+    "en": "Partners",
+    "ar": "الشركاء",
+    "ru": "Партнеры",
+    "zh": "合作伙伴"
+  },
+  "key_3": {
+    "en": "Who We Serve",
+    "ar": "من نخدم",
+    "ru": "Кого мы обслуживаем",
+    "zh": "我们的服务对象"
+  },
+  "key_4": {
+    "en": "Project Owner",
+    "ar": "مالك المشروع",
+    "ru": "Владелец проекта",
+    "zh": "项目方"
+  },
+  "key_5": {
+    "en": "Initial Contact",
+    "ar": "الاتصال الأولي",
+    "ru": "Первоначальный контакт",
+    "zh": "初步联系"
+  },
+  "key_6": {
+    "en": "Project owner apply for a partnership. We check the alignment with our philosophy. Analyze the feasibility and create our strategy. Get in touch with you and finalize the details.",
+    "ar": "يتقدم مالك المشروع بطلب للشراكة. نتحقق من التوافق مع فلسفتنا. نحلل الجدوى ونضع استراتيجيتنا. نتواصل معك ونضع اللمسات الأخيرة على التفاصيل.",
+    "ru": "Владелец проекта подает заявку на партнерство. Мы проверяем соответствие нашей философии. Анализируем осуществимость и создаем нашу стратегию. Связываемся с вами и согласовываем детали.",
+    "zh": "项目方申请合作。我们检查是否符合我们的理念。分析可行性并制定我们的战略。与您取得联系并敲定细节。"
+  },
+  "key_7": {
+    "en": "Listing",
+    "ar": "الإدراج",
+    "ru": "Листинг",
+    "zh": "上市"
+  },
+  "key_8": {
+    "en": "Preparation for project launch. Signing agreements with partners. Listing project. Finalizing fundraising.",
+    "ar": "التحضير لإطلاق المشروع. توقيع الاتفاقيات مع الشركاء. إدراج المشروع. استكمال عملية جمع التبرعات.",
+    "ru": "Подготовка к запуску проекта. Подписание соглашений с партнерами. Листинг проекта. Завершение сбора средств.",
+    "zh": "准备项目启动。与合作伙伴签署协议。项目上市。完成融资。"
+  },
+  "key_9": {
+    "en": "Closure",
+    "ar": "الإغلاق",
+    "ru": "Закрытие",
+    "zh": "圆满收官"
+  },
+  "key_10": {
+    "en": "Completion of the round. Periodical follow up on the project.",
+    "ar": "اكتمال الجولة. متابعة دورية للمشروع.",
+    "ru": "Завершение раунда. Периодическое отслеживание проекта.",
+    "zh": "完成该轮融资。定期跟进项目。"
+  },
+  "key_11": {
+    "en": "Investor",
+    "ar": "المستثمر",
+    "ru": "Инвестор",
+    "zh": "投资者"
+  },
+  "key_12": {
+    "en": "Discovery",
+    "ar": "الاستكشاف",
+    "ru": "Обнаружение",
+    "zh": "发现"
+  },
+  "key_13": {
+    "en": "Discover project of interest. Request more informations. First meeting, signing NNN. Access to VDR.",
+    "ar": "استكشاف المشاريع ذات الاهتمام. طلب المزيد من المعلومات. الاجتماع الأول، توقيع اتفاقية عدم الإفصاح وعدم الاستخدام وعدم التحايل (NNN). الوصول إلى غرفة البيانات الافتراضية (VDR).",
+    "ru": "Обнаружение интересующего проекта. Запрос дополнительной информации. Первая встреча, подписание соглашения NNN. Доступ к VDR.",
+    "zh": "发现感兴趣的项目。索取更多信息。初次会面，签署 NNN 协议。访问 VDR（虚拟数据室）。"
+  },
+  "key_14": {
+    "en": "Engagement",
+    "ar": "المشاركة",
+    "ru": "Взаимодействие",
+    "zh": "参与"
+  },
+  "key_15": {
+    "en": "Contribution to the Round: Traditional way (approximately. 6 months upwards till finalization) or Tokenization way (immediately on-chain, RWA).",
+    "ar": "المساهمة في الجولة: الطريقة التقليدية (حوالي 6 أشهر فما فوق حتى الانتهاء) أو طريقة الترميز (مباشرة على البلوكتشين، أصول العالم الحقيقي RWA).",
+    "ru": "Вклад в раунд: традиционным способом (приблизительно от 6 месяцев до завершения) или путем токенизации (немедленно в сети, RWA).",
+    "zh": "针对本轮的投入：传统方式（大约 6 个月以上直至最终确定）或代币化方式（链上即时，RWA）。"
+  },
+  "key_16": {
+    "en": "Follow Up",
+    "ar": "المتابعة",
+    "ru": "Последующие действия",
+    "zh": "跟进"
+  },
+  "key_17": {
+    "en": "Keeping in loop with project updates and future plans.",
+    "ar": "البقاء على اطلاع بتحديثات المشروع والخطط المستقبلية.",
+    "ru": "Сохранение связи с обновлениями проекта и планами на будущее.",
+    "zh": "随时了解项目更新和未来计划。"
+  },
+  "key_18": {
+    "en": "Legal",
+    "ar": "قانوني",
+    "ru": "Юридический отдел",
+    "zh": "法律"
+  },
+  "key_19": {
+    "en": "Compliance",
+    "ar": "الامتثال",
+    "ru": "Соблюдение нормативных требований",
+    "zh": "合规性"
+  },
+  "key_20": {
+    "en": "The Platform",
+    "ar": "المنصة",
+    "ru": "Платформа",
+    "zh": "平台"
+  },
+  "key_21": {
+    "en": "VASP License",
+    "ar": "ترخيص مزود خدمات الأصول الرقمية (DASP)",
+    "ru": "Лицензия DASP",
+    "zh": "DASP 许可证"
+  },
+  "key_22": {
+    "en": "Virtual Data Room",
+    "ar": "غرفة البيانات الافتراضية",
+    "ru": "Виртуальная комната данных",
+    "zh": "虚拟数据室"
+  },
+  "key_23": {
+    "en": "Platform of Infrastructure Projects",
+    "ar": "منصة مشاريع البنية التحتية",
+    "ru": "Платформа инфраструктурных проектов",
+    "zh": "基础设施项目平台"
+  },
+  "key_24": {
+    "en": "Institutional Standards",
+    "ar": "المعايير المؤسسية",
+    "ru": "Институциональные стандарты",
+    "zh": "机构标准"
+  },
+  "key_25": {
+    "en": "Regulatory Compliance",
+    "ar": "الامتثال التنظيمي",
+    "ru": "Соблюдение нормативных требований",
+    "zh": "监管合规"
+  },
+  "key_26": {
+    "en": "KYC Compliance",
+    "ar": "الامتثال لقواعد معرفة العميل (KYC)",
+    "ru": "Соответствие требованиям KYC",
+    "zh": "KYC 合规性"
+  },
+  "key_27": {
+    "en": "NNN Agreement",
+    "ar": "اتفاقية NNN",
+    "ru": "Соглашение NNN",
+    "zh": "NNN 协议"
+  },
+  "key_28": {
+    "en": "Team",
+    "ar": "الفريق",
+    "ru": "Команда",
+    "zh": "团队"
+  },
+  "key_29": {
+    "en": "Meet Our Team",
+    "ar": "تعرّف على فريقنا",
+    "ru": "Познакомьтесь с нашей командой",
+    "zh": "认识我们的团队"
+  },
+  "key_30": {
+    "en": "Matti Gerber",
+    "ar": "Matti Gerber",
+    "ru": "Matti Gerber",
+    "zh": "Matti Gerber"
+  },
+  "key_31": {
+    "en": "Managing Director Global",
+    "ar": "المدير الإداري العالمي",
+    "ru": "Глобальный управляющий директор",
+    "zh": "全球董事总经理"
+  },
+  "key_32": {
+    "en": "Dean Zhang",
+    "ar": "Dean Zhang",
+    "ru": "Dean Zhang",
+    "zh": "Dean Zhang"
+  },
+  "key_33": {
+    "en": "Managing Director China",
+    "ar": "المدير الإداري في الصين",
+    "ru": "Управляющий директор в Китае",
+    "zh": "中国区董事总经理"
+  },
+  "key_34": {
+    "en": "Ertugrul Kucukkaya",
+    "ar": "Ertugrul Kucukkaya",
+    "ru": "Ertugrul Kucukkaya",
+    "zh": "Ertugrul Kucukkaya"
+  },
+  "key_35": {
+    "en": "IT Intern",
+    "ar": "متدرب في تكنولوجيا المعلومات",
+    "ru": "Стажер в ИТ-отделе",
+    "zh": "IT 实习生"
+  },
+  "key_36": {
+    "en": "Our Innovations",
+    "ar": "ابتكاراتنا",
+    "ru": "Наши инновации",
+    "zh": "我们的创新"
+  },
+  "key_37": {
+    "en": "Product Suite",
+    "ar": "مجموعة المنتجات",
+    "ru": "Пакет продуктов",
+    "zh": "产品套件"
+  },
+  "key_38": {
+    "en": "RWA (Tokenization of Infrastructure Projects)",
+    "ar": "أصول العالم الحقيقي (ترميز مشاريع البنية التحتية)",
+    "ru": "RWA (Токенизация инфраструктурных проектов)",
+    "zh": "RWA（基础设施项目代币化）"
+  },
+  "key_39": {
+    "en": "On-chain tokenization of real-world infrastructure projects, enabling fractional investment and transparent ownership.",
+    "ar": "الترميز على البلوكتشين لمشاريع البنية التحتية في العالم الحقيقي، مما يتيح الاستثمار الجزئي والملكية الشفافة.",
+    "ru": "Внутрисетевая токенизация реальных инфраструктурных проектов, обеспечивающая долевое инвестирование и прозрачное владение.",
+    "zh": "现实世界基础设施项目链上代币化，实现部分投资和透明所有权。"
+  },
+  "key_40": {
+    "en": "AI Suite",
+    "ar": "مجموعة الذكاء الاصطناعي",
+    "ru": "Пакет ИИ",
+    "zh": "AI 套件"
+  },
+  "key_41": {
+    "en": "Agentic-AI systems for analyzing, evaluating, scoring, and reporting on global infrastructure projects.",
+    "ar": "أنظمة الذكاء الاصطناعي المعتمدة على الوكلاء لتحليل وتقييم وتسجيل وإعداد التقارير حول مشاريع البنية التحتية العالمية.",
+    "ru": "Агентные системы искусственного интеллекта для анализа, оценки, выставления баллов и предоставления отчетов по глобальным инфраструктурным проектам.",
+    "zh": "用于分析、评估、评分和报告全球基础设施项目的代理型 AI 系统。"
+  },
+  "key_42": {
+    "en": "Privacy Policy",
+    "ar": "سياسة الخصوصية",
+    "ru": "Политика конфиденциальности",
+    "zh": "隐私政策"
+  },
+  "key_43": {
+    "en": "This Privacy Policy applies to Hainan Infrastructure Partners Limited (incorporated in Hong Kong, Business Registration No. [XXXXXXXX]), a wholly-owned subsidiary of Hainan Infrastructure Platform Ltd., operator of this website.",
+    "ar": "تنطبق سياسة الخصوصية هذه على شركة Hainan Infrastructure Partners Limited (التي تأسست في هونغ كونغ، رقم تسجيل الأعمال [XXXXXXXX])، وهي شركة تابعة بالكامل لشركة Hainan Infrastructure Platform Ltd.، مشغلة هذا الموقع.",
+    "ru": "Настоящая Политика конфиденциальности применяется к Hainan Infrastructure Partners Limited (зарегистрированной в Гонконге, регистрационный номер компании [XXXXXXXX]), стопроцентной дочерней компании Hainan Infrastructure Platform Ltd., оператору этого веб-сайта.",
+    "zh": "本隐私政策适用于 Hainan Infrastructure Platform Ltd. 的全资子公司 Hainan Infrastructure Partners Limited（在香港注册成立，商业登记号 [XXXXXXXX]），即本网站的运营商。"
+  },
+  "key_44": {
+    "en": "This is a display-only informational website. We do not require users to register, log in, or submit personal data to access our content. We do not use cookies, tracking pixels, or analytics tools that collect personal data.",
+    "ar": "هذا موقع معلوماتي للعرض فقط. لا نطلب من المستخدمين التسجيل أو تسجيل الدخول أو إرسال بيانات شخصية للوصول إلى محتوانا. نحن لا نستخدم ملفات تعريف الارتباط أو بكسلات التتبع أو أدوات التحليل التي تجمع البيانات الشخصية.",
+    "ru": "Это информационный веб-сайт только для просмотра. Мы не требуем от пользователей регистрации, входа в систему или предоставления личных данных для доступа к нашему контенту. Мы не используем файлы cookie, пиксели отслеживания или аналитические инструменты, которые собирают личные данные.",
+    "zh": "这是一个仅供展示的信息性网站。我们不要求用户注册、登录或提交个人数据即可访问我们的内容。我们不使用收集个人数据的 cookie、跟踪像素或分析工具。"
+  },
+  "key_45": {
+    "en": "If you contact us voluntarily by email or other means, we may collect your name, email address, company name, job title, and the content of your message.",
+    "ar": "إذا اتصلت بنا طواعية عن طريق البريد الإلكتروني أو وسائل أخرى، فقد نجمع اسمك وعنوان بريدك الإلكتروني واسم شركتك والمسمى الوظيفي ومحتوى رسالتك.",
+    "ru": "Если вы добровольно связываетесь с нами по электронной почте или другими способами, мы можем собирать ваше имя, адрес электронной почты, название компании, должность и содержание вашего сообщения.",
+    "zh": "如果您自愿通过电子邮件或其他方式与我们联系，我们可能会收集您的姓名、电子邮件地址、公司名称、职位及信息内容。"
+  },
+  "key_46": {
+    "en": "We use such personal data only to: respond to enquiries; maintain business correspondence records; and carry out internal compliance and administrative functions.",
+    "ar": "نستخدم هذه البيانات الشخصية فقط من أجل: الرد على الاستفسارات؛ والاحتفاظ بسجلات المراسلات التجارية؛ وأداء مهام الامتثال الداخلي والوظائف الإدارية.",
+    "ru": "Мы используем такие личные данные только для: ответов на запросы; ведения учета деловой переписки; и выполнения внутренних административных функций и функций по соблюдению нормативных требований.",
+    "zh": "我们仅将此类个人数据用于：回应查询；维护商业信函记录；以及执行内部合规和行政管理职能。"
+  },
+  "key_47": {
+    "en": "We do not use your personal data for direct marketing without your prior consent. We do not sell or rent your personal data.",
+    "ar": "نحن لا نستخدم بياناتك الشخصية للتسويق المباشر دون موافقتك المسبقة. نحن لا نبيع أو نؤجر بياناتك الشخصية.",
+    "ru": "Мы не используем ваши личные данные для прямого маркетинга без вашего предварительного согласия. Мы не продаем и не сдаем в аренду ваши личные данные.",
+    "zh": "未经您事先同意，我们不会将您的个人数据用于直接营销。我们绝不向他人出售或出租您的个人数据。"
+  },
+  "key_48": {
+    "en": "We retain personal data only as long as necessary for the purposes for which it was collected, or as required by law. We take reasonable technical and organisational steps to protect personal data from unauthorised access, loss, misuse, or disclosure.",
+    "ar": "نحن نحتفظ بالبيانات الشخصية فقط طالما كان ذلك ضروريًا للأغراض التي جُمعت من أجلها، أو كما يقتضيه القانون. نتخذ خطوات تقنية وتنظيمية معقولة لحماية البيانات الشخصية من الوصول غير المصرح به أو الفقدان أو سوء الاستخدام أو الكشف عنها.",
+    "ru": "Мы храним личные данные только до тех пор, пока это необходимо для целей, для которых они были собраны, или в соответствии с требованиями закона. Мы предпринимаем разумные технические и организационные меры для защиты личных данных от несанкционированного доступа, потери, неправомерного использования или раскрытия.",
+    "zh": "我们仅保留个人数据至实现收集目的所需之时，或者法律规定的期限。我们将采取合理的物理、电子及管理保护措施以防您的个人信息受到未经授权的访问、丢失、滥用或披露。"
+  },
+  "key_49": {
+    "en": "We may disclose personal data to our professional advisers, our parent company, or where required by law or regulation.",
+    "ar": "قد نكشف عن البيانات الشخصية لمستشارينا المهنيين، أو لشركتنا الأم، أو عندما يقتضي القانون أو اللوائح ذلك.",
+    "ru": "Мы можем раскрывать личные данные нашим профессиональным консультантам, нашей материнской компании или в случаях, когда это требуется по закону или в соответствии с нормативными актами.",
+    "zh": "我们可能会向我们的专业顾问、我们的母公司披露个人数据，或在法律法规要求的情况下披露个人数据。"
+  },
+  "key_50": {
+    "en": "headquarters@hainan-infra.com",
+    "ar": "headquarters@hainan-infra.com",
+    "ru": "headquarters@hainan-infra.com",
+    "zh": "headquarters@hainan-infra.com"
+  },
+  "key_51": {
+    "en": "This website does not use cookies.",
+    "ar": "لا يستخدم هذا الموقع ملفات تعريف الارتباط (الكوكيز).",
+    "ru": "На этом веб-сайте не используются файлы cookie.",
+    "zh": "本网站不使用 cookie。"
+  },
+  "key_52": {
+    "en": "Regulatory Notice",
+    "ar": "إشعار تنظيمي",
+    "ru": "Уведомление о нормативных требованиях",
+    "zh": "监管通知"
+  },
+  "key_53": {
+    "en": "Hainan Infrastructure Partners Limited (incorporated in Hong Kong, Business Registration No. [XXXXXXXX]), a wholly-owned subsidiary of Hainan Infrastructure Platform Ltd., operates this website for informational purposes only.",
+    "ar": "تقوم شركة Hainan Infrastructure Partners Limited (التي تأسست في هونغ كونغ، رقم تسجيل الأعمال [XXXXXXXX])، وهي شركة تابعة بالكامل لشركة Hainan Infrastructure Platform Ltd.، بتشغيل هذا الموقع لأغراض إعلامية فقط.",
+    "ru": "Компания Hainan Infrastructure Partners Limited (зарегистрированная в Гонконге, регистрационный номер компании [XXXXXXXX]), стопроцентная дочерняя компания Hainan Infrastructure Platform Ltd., управляет данным веб-сайтом исключительно в информационных целях.",
+    "zh": "Hainan Infrastructure Partners Limited（在香港注册成立的有限责任公司，商业登记号 [XXXXXXXX]）是 Hainan Infrastructure Platform Ltd. 的全资子公司，且该网站仅作信息展示之用。"
+  },
+  "key_54": {
+    "en": "Hainan Infrastructure Partners Limited is not authorised, licensed, or regulated by the Securities and Futures Commission of Hong Kong (SFC), the Hong Kong Monetary Authority (HKMA), or any other financial regulatory authority in Hong Kong or elsewhere in connection with the operation of this website or its described activities.",
+    "ar": "شركة Hainan Infrastructure Partners Limited غير مصرح لها أو مرخصة أو منظمة من قبل لجنة الأوراق المالية والعقود الآجلة في هونغ كونغ (SFC) أو سلطة النقد في هونغ كونغ (HKMA) أو أي سلطة تنظيمية مالية أخرى في هونغ كونغ أو في أي مكان آخر فيما يتعلق بتشغيل هذا الموقع أو الأنشطة الموصوفة فيه.",
+    "ru": "Компания Hainan Infrastructure Partners Limited не имеет разрешения, лицензии и не регулируется Комиссией по ценным бумагам и фьючерсам Гонконга (SFC), Валютным управлением Гонконга (HKMA) или любым другим финансовым регулирующим органом в Гонконге или где-либо еще в связи с работой этого веб-сайта или описанной на нем деятельности.",
+    "zh": "Hainan Infrastructure Partners Limited 未获香港证券及期货事务监察委员会 (SFC)、香港金融管理局 (HKMA) 或在香港或其他地区运作之任何其他金融监管机构的授权、发牌或监管，以规管此网站的运作及其所述活动。"
+  },
+  "key_55": {
+    "en": "Hainan Infrastructure Partners Limited does not conduct any regulated activity under the Securities and Futures Ordinance (Cap. 571) or the Anti-Money Laundering and Counter-Terrorist Financing Ordinance (Cap. 615) of Hong Kong. It is not a virtual asset service provider (VASP) or virtual asset trading platform (VATP) operator.",
+    "ar": "لا تقوم شركة Hainan Infrastructure Partners Limited بأي نشاط منظم بموجب قانون الأوراق المالية والعقود الآجلة (الفصل 571) أو قانون مكافحة غسل الأموال وتمويل الإرهاب (الفصل 615) في هونغ كونغ. وهي ليست مزود خدمة أصول افتراضية (VASP) أو مشغل منصة تداول أصول افتراضية (VATP).",
+    "ru": "Hainan Infrastructure Partners Limited не осуществляет какую-либо регулируемую деятельность в соответствии с Постановлением о ценных бумагах и фьючерсах (Глава 571) или Постановлением о борьбе с отмыванием денег и финансированием терроризма (Глава 615) Гонконга. Компания не является поставщиком услуг виртуальных активов (VASP) или оператором платформы для торговли виртуальными активами (VATP).",
+    "zh": "Hainan Infrastructure Partners Limited 并无在香港进行《证券及期货条例》（第 571 章）或《打击洗钱及恐怖分子资金筹集条例》（第 615 章）项下涵盖的任何受规管活动。其并非虚拟资产服务提供商 (VASP) 或虚拟资产交易平台 (VATP) 的运营商。"
+  },
+  "key_56": {
+    "en": "This website provides information only. All real-world asset (RWA) tokenization infrastructure, transaction processing, custody, issuance, and related financial services are provided exclusively by Hainan Infrastructure Platform Ltd..",
+    "ar": "يقدم هذا الموقع المعلومات فقط. يتم تقديم جميع البنية التحتية لترميز أصول العالم الحقيقي (RWA)، ومعالجة المعاملات، والحفظ، والإصدار، والخدمات المالية ذات الصلة حصريًا من قبل Hainan Infrastructure Platform Ltd..",
+    "ru": "На этом сайте представлена только информация. Вся инфраструктура токенизации реальных активов (RWA), обработка транзакций, хранение, выпуск и связанные финансовые услуги предоставляются исключительно Hainan Infrastructure Platform Ltd..",
+    "zh": "本网站仅提供信息展示。所有现实世界资产 (RWA) 代币化的基础设施、交易处理、托管、发行及相关的金融服务均由由Hainan Infrastructure Platform Ltd.独家提供。"
+  },
+  "key_57": {
+    "en": "This website is intended for Professional Investors as defined under Schedule 1 of the Hong Kong Securities and Futures Ordinance (Cap. 571). No tokenized product or service may be offered, solicited, arranged, or transacted through this website.",
+    "ar": "هذا الموقع مخصص للمستثمرين المحترفين كما هو محدد بموجب الجدول 1 من قانون الأوراق المالية والعقود الآجلة في هونغ كونغ (الفصل 571). لا يجوز عرض أو طلب أو ترتيب أو إجراء معاملات لأي منتج أو خدمة مرمزة من خلال هذا الموقع.",
+    "ru": "Этот веб-сайт предназначен для профессиональных инвесторов, как это определено в Приложении 1 к Постановлению о ценных бумагах и фьючерсах Гонконга (Глава 571). Через этот веб-сайт не может предлагаться, запрашиваться, организовываться или заключаться сделка с каким-либо токенизированным продуктом или услугой.",
+    "zh": "此网站仅针对香港《证券及期货条例》（第 571 章）附表 1 定义的专业投资者。任何人不得通过本网站提供、招揽、安排或交易任何代币化产品或服务。"
+  },
+  "key_58": {
+    "en": "Hainan Infrastructure Partners Limited does not hold, receive, transmit, or safeguard any virtual assets, client funds, or financial instruments.",
+    "ar": "لا تحتفظ شركة Hainan Infrastructure Partners Limited بأي أصول افتراضية أو أموال عملاء أو أدوات مالية أو تستلمها أو تنقلها أو تحميها.",
+    "ru": "Hainan Infrastructure Partners Limited не хранит, не получает, не передает и не обеспечивает сохранность каких-либо виртуальных активов, средств клиентов или финансовых инструментов.",
+    "zh": "Hainan Infrastructure Partners Limited 不会持有、接收、转移或保管任何虚拟资产、客户资金或金融工具。"
+  },
+  "key_59": {
+    "en": "Terms of Use",
+    "ar": "شروط الاستخدام",
+    "ru": "Условия использования",
+    "zh": "使用条款"
+  },
+  "key_60": {
+    "en": "By accessing or using this website, you agree to be bound by these Terms of Use and our Privacy Policy. If you do not agree, do not use the website.",
+    "ar": "من خلال الوصول إلى هذا الموقع أو استخدامه، فإنك توافق على الالتزام بشروط الاستخدام هذه وسياسة الخصوصية الخاصة بنا. إذا كنت لا توافق، فلا تستخدم الموقع.",
+    "ru": "Заходя на этот сайт или используя его, вы соглашаетесь с настоящими Условиями использования и нашей Политикой конфиденциальности. Если вы не согласны, пожалуйста, не используйте сайт.",
+    "zh": "访问或使用本网站，即表示您同意接受这些使用条款和我们的隐私政策的约束。如果您不同意，请勿使用本网站。"
+  },
+  "key_61": {
+    "en": "This website is operated by Hainan Infrastructure Partners Limited (Hong Kong), a wholly-owned subsidiary of Hainan Infrastructure Platform Ltd..",
+    "ar": "يتم تشغيل هذا الموقع بواسطة Hainan Infrastructure Partners Limited (Hong Kong)، وهي شركة تابعة بالكامل لـ Hainan Infrastructure Platform Ltd..",
+    "ru": "Данный веб-сайт управляется компанией Hainan Infrastructure Partners Limited (Hong Kong), которая является 100% дочерней компанией Hainan Infrastructure Platform Ltd..",
+    "zh": "该网站由 Hainan Infrastructure Platform Ltd. 的全资子公司 Hainan Infrastructure Partners Limited (Hong Kong) 运营。"
+  },
+  "key_62": {
+    "en": "The website is for informational purposes only. No content on this site constitutes an offer, solicitation, recommendation, or financial advice. No contract is formed by virtue of your use of this website.",
+    "ar": "الموقع لأغراض إعلامية فقط. لا يشكل أي محتوى على هذا الموقع عرضًا أو طلبًا أو توصية أو نصيحة مالية. لا يتم تشكيل أي عقد بحكم استخدامك لهذا الموقع.",
+    "ru": "Сайт предназначен исключительно для информационных целей. Никакой контент на этом сайте не является предложением, приглашением, рекомендацией или финансовым советом. В результате использования вами данного веб-сайта договор не заключается.",
+    "zh": "网站仅用于提供信息。本网站的任何内容均不构成要约、招揽、推荐或财务建议。凭借您使用本网站并不构成任何合同关系。"
+  },
+  "key_63": {
+    "en": "This website is intended solely for Professional Investors. You represent that you are permitted under applicable law to access and use this website.",
+    "ar": "هذا الموقع مخصص حصريًا للمستثمرين المحترفين. أنت تقر بأنه مسموح لك بموجب القانون المعمول به الوصول إلى هذا الموقع واستخدامه.",
+    "ru": "Этот сайт предназначен исключительно для профессиональных инвесторов. Вы подтверждаете, что в соответствии с применимым законодательством вам разрешен доступ к данному веб-сайту и его использование.",
+    "zh": "本网站仅供专业投资者使用。您应声明按适用法律，您被允许访问及使用本网站。"
+  },
+  "key_64": {
+    "en": "All content on this website is owned by Hainan Infrastructure Partners Limited or its licensors and is licensed for display by Hainan Infrastructure Partners Limited. You may not copy, distribute, modify, or exploit any content without prior written consent.",
+    "ar": "جميع المحتويات الموجودة على هذا الموقع مملوكة لشركة Hainan Infrastructure Partners Limited أو المرخصين لها وهي مرخصة للعرض بواسطة Hainan Infrastructure Partners Limited. لا يجوز لك نسخ أو توزيع أو تعديل أو استغلال أي محتوى دون موافقة كتابية مسبقة.",
+    "ru": "Все содержимое этого сайта принадлежит компании Hainan Infrastructure Partners Limited или ее лицензиарам и лицензировано для показа компанией Hainan Infrastructure Partners Limited. Вы не имеете права копировать, распространять, изменять или использовать контент в коммерческих целях без предварительного письменного согласия.",
+    "zh": "本网站的所有内容全权隶属于 Hainan Infrastructure Partners Limited 或是属于其相关许可方，并授权 Hainan Infrastructure Partners Limited 用作展示之用。未经许可并获得书面同意下，您不得复制、分发、篡改或开发使用该网站中的任何内容信息。"
+  },
+  "key_65": {
+    "en": "This website is provided “as is” and “as available” without warranties of any kind. We do not guarantee accuracy, completeness, uninterrupted access, or absence of harmful code.",
+    "ar": "يتم توفير هذا الموقع \"كما هو\" و \"كما هو متاح\" دون ضمانات من أي نوع. نحن لا نضمن الدقة أو الاكتمال أو الوصول غير المنقطع أو عدم وجود رموز ضارة.",
+    "ru": "Этот веб-сайт предоставляется на условиях «как есть» и «как доступно» без каких-либо гарантий. Мы не гарантируем точности, полноты, бесперебойного доступа или отсутствия вредоносного кода.",
+    "zh": "本网站在“原样”和“可用”的基础上呈现并提供，没有任何担保。我们不能保证信息的准确性、完整性、访问的不中断及没有有害代码程序。"
+  },
+  "key_66": {
+    "en": "To the fullest extent permitted by law, we disclaim liability for any loss arising from use of or reliance on this website.",
+    "ar": "إلى أقصى حد يسمح به القانون، نخلي مسؤوليتنا عن أي خسارة تنشأ عن استخدام هذا الموقع أو الاعتماد عليه.",
+    "ru": "В максимальной степени, разрешенной законом, мы отказываемся от ответственности за любые убытки, возникающие в результате использования этого веб-сайта или доверия к нему.",
+    "zh": "我们不对因使用或依赖此网站引起的任何损失在法律所允许之最大范围内承担责任。"
+  },
+  "key_67": {
+    "en": "This website may contain links to third-party websites. We are not responsible for their content, privacy practices, or availability.",
+    "ar": "قد يحتوي هذا الموقع على روابط لمواقع جهات خارجية. نحن لسنا مسؤولين عن محتواها أو ممارسات الخصوصية الخاصة بها أو توفرها.",
+    "ru": "На этом сайте могут быть ссылки на сторонние веб-сайты. Мы не несем ответственности за их содержание, политику конфиденциальности или доступность.",
+    "zh": "我们的网站存在跳转至第三方相关网址的可能性。我们不对其网站的内容，隐私相关管理条款及使用上的可访性负任何责任及担保。"
+  },
+  "key_68": {
+    "en": "These Terms are governed by the laws of the British Virgin Islands, and disputes shall be subject to the exclusive jurisdiction of the courts of the British Virgin Islands.",
+    "ar": "تخضع هذه الشروط لقوانين جزر العذراء البريطانية، وتخضع النزاعات للاختصاص القضائي الحصري لمحاكم جزر العذراء البريطانية.",
+    "ru": "Настоящие Условия регулируются законодательством Британских Виргинских островов, и любые споры подлежат исключительной юрисдикции судов Британских Виргинских островов.",
+    "zh": "使用条款及规章制度皆按英属维尔京群岛的当地法规，产生的任何相关方面的纠纷，仅服从于英属维尔京群岛的当地管辖法院的排他性司法管辖范围内。"
+  }
+}
